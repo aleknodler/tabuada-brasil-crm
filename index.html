@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabuada Brasil - CRM Online</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    :root { --ac: #0ea5e9; --ac2: #0284c7; --mu: #64748b; --bd: #e2e8f0; --tm: #1e293b; --ok: #10b981; --er: #ef4444; }
+    body { background: #f1f5f9; color: var(--tm); display: flex; min-height: 100vh; }
+    #auth-screen { position: fixed; inset: 0; background: #f1f5f9; z-index: 1000; display: flex; align-items: center; justify-content: center; }
+    .auth-card { background: #fff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); width: 100%; max-width: 420px; }
+    .auth-card h2 { color: var(--ac); margin-bottom: 8px; }
+    .auth-card p { color: var(--mu); font-size: 14px; margin-bottom: 24px; }
+    .auth-card input { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid var(--bd); border-radius: 8px; font-size: 14px; }
+    .auth-error { color: var(--er); font-size: 13px; margin-top: 12px; min-height: 18px; }
+    aside { width: 260px; background: #0f172a; color: #fff; position: fixed; height: 100vh; z-index: 100; transition: transform .3s; display: flex; flex-direction: column; }
+    .sh { padding: 24px; border-bottom: 1px solid #1e293b; }
+    .sh h1 { font-size: 18px; color: var(--ac); font-weight: 700; }
+    .ni { padding: 12px 24px; display: flex; align-items: center; cursor: pointer; color: #94a3b8; transition: .2s; text-decoration: none; border: none; background: none; width: 100%; font-size: 14px; }
+    .ni:hover, .ni.act { background: #1e293b; color: #fff; }
+    .ni span { margin-right: 12px; }
+    main { flex: 1; margin-left: 260px; display: flex; flex-direction: column; min-height: 100vh; }
+    header { height: 64px; background: #fff; border-bottom: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; position: sticky; top: 0; z-index: 90; }
+    .hamb { display: none; background: none; border: none; font-size: 22px; cursor: pointer; margin-right: 12px; color: var(--tm); }
+    .ca { padding: 24px; max-width: 1400px; margin: 0 auto; width: 100%; flex: 1; }
+    .vw { display: none; }
+    .vw.act { display: block; }
+    .card-box { background: #fff; border-radius: 12px; border: 1px solid var(--bd); padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
+    label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+    input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--bd); border-radius: 8px; font-size: 14px; outline: none; font-family: inherit; }
+    input:focus, textarea:focus, select:focus { border-color: var(--ac); }
+    .btn { padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; font-size: 13px; transition: .2s; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+    .bp { background: var(--ac); color: #fff; }
+    .bp:hover { background: var(--ac2); }
+    .bo { background: transparent; border: 1px solid var(--bd); color: var(--tm); }
+    .bo:hover { background: #f1f5f9; }
+    .bs { background: var(--ok); color: #fff; }
+    .bs:hover { background: #059669; }
+    .br { background: var(--er); color: #fff; }
+    .br:hover { background: #dc2626; }
+    .loading { display: none; text-align: center; padding: 40px; color: var(--mu); }
+    .loading.show { display: block; }
+    .toast { position: fixed; bottom: 24px; right: 24px; background: #1e293b; color: #fff; padding: 12px 20px; border-radius: 8px; display: none; z-index: 300; font-size: 14px; max-width: 400px; box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+    .state-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .state-btn { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--bd); background: #fff; color: var(--tm); transition: .2s; }
+    .state-btn:hover { background: var(--ac); color: #fff; border-color: var(--ac); }
+    .state-btn.act { background: var(--ac); color: #fff; border-color: var(--ac); }
+    .auto-bar { display: none; background: #e0f2fe; border: 1px solid var(--ac); border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 13px; color: #075985; align-items: center; justify-content: space-between; }
+    .auto-bar.show { display: flex; }
+    .neighborhood-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; max-height: 120px; overflow-y: auto; padding: 8px; background: #f8fafc; border-radius: 8px; border: 1px solid var(--bd); }
+    .nb-tag { padding: 4px 10px; background: #fff; border: 1px solid var(--bd); border-radius: 6px; font-size: 12px; display: inline-flex; align-items: center; gap: 4px; }
+    .nb-tag span { cursor: pointer; color: var(--er); font-weight: 700; }
+    .debug-log { background: #0f172a; color: #4ade80; padding: 12px 16px; border-radius: 8px; font-family: monospace; font-size: 12px; margin-top: 12px; max-height: 180px; overflow-y: auto; display: none; }
+    .debug-log.show { display: block; }
+    .debug-log div { padding: 2px 0; border-bottom: 1px solid #1e293b; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { padding: 12px 16px; border-bottom: 2px solid var(--bd); color: var(--mu); font-size: 11px; text-transform: uppercase; font-weight: 600; }
+    td { padding: 14px 16px; border-bottom: 1px solid var(--bd); font-size: 14px; vertical-align: middle; }
+    tr:hover { background: #f8fafc; }
+    .kanban-board { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 16px; min-height: 600px; }
+    .kanban-col { flex: 1; min-width: 260px; background: #f8fafc; border-radius: 12px; border: 1px solid var(--bd); display: flex; flex-direction: column; }
+    .kanban-col.drag-over { border: 2px dashed var(--ac); background: #e0f2fe; }
+    .kc-header { padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--bd); }
+    .kc-title { font-size: 13px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+    .kc-count { background: #fff; border: 1px solid var(--bd); border-radius: 12px; padding: 1px 8px; font-size: 11px; color: var(--mu); }
+    .kc-body { padding: 12px; flex: 1; overflow-y: auto; max-height: 550px; min-height: 100px; }
+    .lead-card { background: #fff; border: 1px solid var(--bd); border-radius: 8px; padding: 12px; margin-bottom: 8px; cursor: grab; transition: .2s; }
+    .lead-card:hover { border-color: var(--ac); box-shadow: 0 2px 8px rgba(14,165,233,.15); }
+    .lead-card.dragging { opacity: .5; }
+    .lc-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .lc-info { font-size: 12px; color: var(--mu); display: flex; flex-direction: column; gap: 2px; }
+    .lc-days { font-size: 10px; color: #94a3b8; margin-top: 4px; }
+    .mo { position: fixed; inset: 0; background: rgba(15,23,42,.6); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
+    .md { background: #fff; width: 100%; max-width: 600px; border-radius: 16px; padding: 32px; position: relative; max-height: 90vh; overflow-y: auto; }
+    .cm { position: absolute; top: 16px; right: 16px; cursor: pointer; font-size: 24px; color: var(--mu); background: none; border: none; }
+    .detail-section { margin-bottom: 20px; }
+    .detail-label { font-size: 11px; color: var(--mu); text-transform: uppercase; margin-bottom: 4px; font-weight: 600; }
+    .detail-value { font-size: 14px; }
+    .touch-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 12px 16px; border: 1px solid var(--bd); border-radius: 8px; margin-bottom: 8px; cursor: pointer; font-size: 13px; font-weight: 500; transition: .2s; background: #fff; }
+    .touch-btn:hover { border-color: var(--ac); background: #f0f9ff; }
+    .touch-btn.done { background: #f0fdf4; border-color: #86efac; color: #166534; }
+    .touch-info { display: flex; align-items: center; gap: 8px; }
+    .touch-status { font-size: 11px; color: var(--mu); }
+    .filter-bar { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; margin-bottom: 20px; }
+    .filter-bar > div { min-width: 140px; flex: 1; }
+    .filter-bar input, .filter-bar select { padding: 8px 10px; font-size: 13px; }
+    .kanban-wrapper { display: flex; flex-direction: column; height: calc(100vh - 200px); }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+    .badge-wa { background: #d1fae5; color: #065f46; }
+    .badge-no-wa { background: #fee2e2; color: #991b1b; }
+    .hidden-map { display: none; }
+    .backup-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    @media(max-width: 900px) {
+      aside { transform: translateX(-100%); }
+      aside.open { transform: translateX(0); }
+      main { margin-left: 0; }
+      .hamb { display: block; }
+      .kanban-board { flex-direction: column; }
+      .kanban-col { min-width: auto; }
+      .filter-bar > div { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div id="map-hidden" class="hidden-map"></div>
+
+  <div id="auth-screen">
+    <div class="auth-card">
+      <h2>TABUADA BRASIL</h2>
+      <p>CRM de Leads Online</p>
+      <input type="email" id="auth-email" placeholder="E-mail">
+      <input type="password" id="auth-pass" placeholder="Senha">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button class="btn bp" style="justify-content:center" onclick="handleAuth('login')">Entrar</button>
+        <button class="btn bo" style="justify-content:center" onclick="handleAuth('signup')">Criar Conta</button>
+      </div>
+      <div class="auth-error" id="auth-error"></div>
+    </div>
+  </div>
+
+  <aside id="sidebar">
+    <div class="sh">
+      <h1>TABUADA BRASIL</h1>
+      <div style="font-size:11px;color:#64748b;margin-top:4px">CRM Online</div>
+    </div>
+    <nav style="flex:1;padding:20px 0">
+      <button class="ni act" onclick="showView('busca',this)"><span>🔍</span> Busca de Leads</button>
+      <button class="ni" onclick="showView('kanban',this)"><span>📋</span> Kanban CRM</button>
+      <button class="ni" onclick="showView('config',this)"><span>⚙️</span> Configurações</button>
+      <button class="ni" onclick="logout()" style="margin-top:40px;color:var(--er)"><span>🚪</span> Sair</button>
+    </nav>
+    <div style="padding:20px 24px;border-top:1px solid #1e293b;font-size:11px;color:#64748b">
+      <div>24ª Edição - 1º ao 9º ano</div>
+      <div style="margin-top:4px;color:#475569">AKS Editora - RJ</div>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <div style="display:flex;align-items:center">
+        <button class="hamb" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+        <span style="font-weight:600;font-size:18px" id="vt">Busca de Leads</span>
+      </div>
+      <span style="color:var(--mu);font-size:14px" id="user-email"></span>
+    </header>
+
+    <div class="ca">
+      <div id="view-busca" class="vw act">
+        <div class="card-box">
+          <label>Estado</label>
+          <div class="state-btns">
+            <div class="state-btn act" onclick="setState('Rio de Janeiro',this)">Rio de Janeiro</div>
+            <div class="state-btn" onclick="setState('São Paulo',this)">São Paulo</div>
+            <div class="state-btn" onclick="setState('Espírito Santo',this)">Espírito Santo</div>
+            <div class="state-btn" onclick="setState('Minas Gerais',this)">Minas Gerais</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr auto auto;gap:12px;align-items:end;margin-top:16px">
+            <div>
+              <label>Tipo de Estabelecimento</label>
+              <select id="search-type">
+                <option value="papelaria">Papelaria</option>
+                <option value="livraria">Livraria</option>
+                <option value="material escolar">Material Escolar</option>
+                <option value="papelaria e livraria">Papelaria e Livraria</option>
+                <option value="custom">Personalizado</option>
+              </select>
+            </div>
+            <div>
+              <label>Cidade / Região</label>
+              <input type="text" id="search-loc" value="Rio de Janeiro">
+            </div>
+            <div><button class="btn bp" style="height:42px" onclick="doSearch(false)">Buscar</button></div>
+            <div><button class="btn bs" style="height:42px" onclick="doSearch(true)" id="btn-search-all">⚡ Buscar Tudo</button></div>
+          </div>
+          <div class="auto-bar" id="auto-bar">
+            <div id="auto-status">⏳ Iniciando...</div>
+            <button class="btn br" style="padding:4px 12px;font-size:11px" onclick="stopAuto()">Parar</button>
+          </div>
+          <div class="debug-log" id="debug-log"></div>
+        </div>
+
+        <div class="card-box">
+          <label>Bairros para busca automática</label>
+          <div style="font-size:12px;color:var(--mu);margin-top:4px">Cada bairro traz até 60 resultados. Deixe vazio para buscar só pela cidade.</div>
+          <div class="neighborhood-list" id="nb-list"></div>
+          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+            <input type="text" id="nb-input" placeholder="Adicionar bairro..." style="flex:1;min-width:150px">
+            <select id="nb-preset" onchange="loadPreset()" style="width:200px">
+              <option value="">Carregar lista...</option>
+              <option value="rj">Rio de Janeiro - Zona Sul</option>
+              <option value="rjn">Rio de Janeiro - Zona Norte</option>
+              <option value="rjo">Rio de Janeiro - Oeste</option>
+              <option value="rjc">Rio de Janeiro - Centro</option>
+              <option value="sp">São Paulo - Capital</option>
+              <option value="bh">Belo Horizonte</option>
+              <option value="vix">Vitória/Vila Velha</option>
+            </select>
+            <button class="btn bo" onclick="addNeighborhood()">+ Adicionar</button>
+            <button class="btn br" onclick="clearAllNeighborhoods()">🗑️ Limpar Tudo</button>
+          </div>
+        </div>
+
+        <div id="search-loading" class="loading">⏳ Buscando...</div>
+        <div class="card-box" id="results-card" style="display:none">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
+            <strong>Resultados</strong>
+            <div style="display:flex;gap:8px;align-items:center">
+              <span id="result-count" style="font-size:13px;color:var(--mu)"></span>
+              <button class="btn bs" onclick="saveAllResults()" style="font-size:12px;padding:6px 12px">💾 Salvar Tudo</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table id="results-table">
+              <thead><tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Nota</th><th>Ação</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="view-kanban" class="vw">
+        <div class="filter-bar">
+          <div><label>Buscar</label><input type="text" id="kanban-filter" placeholder="Nome do lead..." oninput="renderKanban()"></div>
+          <div><label>Estado</label><select id="kanban-state" onchange="renderKanban()"><option value="todos">Todos</option><option value="Rio de Janeiro">Rio de Janeiro</option><option value="São Paulo">São Paulo</option><option value="Espírito Santo">Espírito Santo</option><option value="Minas Gerais">Minas Gerais</option></select></div>
+          <div><label>WhatsApp</label><select id="kanban-wa" onchange="renderKanban()"><option value="todos">Todos</option><option value="com">Com WhatsApp</option><option value="sem">Sem WhatsApp</option></select></div>
+          <div style="display:flex;gap:8px;align-items:end"><button class="btn bo" onclick="exportCSV()">📥 CSV</button></div>
+        </div>
+        <div class="kanban-wrapper"><div class="kanban-board" id="kanban-board"></div></div>
+      </div>
+
+      <div id="view-config" class="vw">
+        <div class="card-box">
+          <h3 style="margin-bottom:20px">Configurações de API</h3>
+          <div style="margin-bottom:16px"><label>Google Maps API Key</label><input type="password" id="cfg-key" placeholder="Sua chave da API"><div style="font-size:12px;color:var(--mu);margin-top:4px">Habilite Maps JavaScript API e Places API no Google Cloud Console.</div></div>
+          <button class="btn bp" onclick="saveConfig()">Salvar</button>
+        </div>
+        <div class="card-box">
+          <h3 style="margin-bottom:20px">Mensagens
