@@ -5,235 +5,701 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tabuada Brasil - CRM Online</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    :root { --ac: #0ea5e9; --ac2: #0284c7; --mu: #64748b; --bd: #e2e8f0; --tm: #1e293b; --ok: #10b981; --er: #ef4444; }
-    body { background: #f1f5f9; color: var(--tm); display: flex; min-height: 100vh; }
-    #auth-screen { position: fixed; inset: 0; background: #f1f5f9; z-index: 1000; display: flex; align-items: center; justify-content: center; }
-    .auth-card { background: #fff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); width: 100%; max-width: 420px; }
-    .auth-card h2 { color: var(--ac); margin-bottom: 8px; }
-    .auth-card p { color: var(--mu); font-size: 14px; margin-bottom: 24px; }
-    .auth-card input { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid var(--bd); border-radius: 8px; font-size: 14px; }
-    .auth-error { color: var(--er); font-size: 13px; margin-top: 12px; min-height: 18px; }
-    aside { width: 260px; background: #0f172a; color: #fff; position: fixed; height: 100vh; z-index: 100; transition: transform .3s; display: flex; flex-direction: column; }
-    .sh { padding: 24px; border-bottom: 1px solid #1e293b; }
-    .sh h1 { font-size: 18px; color: var(--ac); font-weight: 700; }
-    .ni { padding: 12px 24px; display: flex; align-items: center; cursor: pointer; color: #94a3b8; transition: .2s; text-decoration: none; border: none; background: none; width: 100%; font-size: 14px; }
-    .ni:hover, .ni.act { background: #1e293b; color: #fff; }
-    .ni span { margin-right: 12px; }
-    main { flex: 1; margin-left: 260px; display: flex; flex-direction: column; min-height: 100vh; }
-    header { height: 64px; background: #fff; border-bottom: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; position: sticky; top: 0; z-index: 90; }
-    .hamb { display: none; background: none; border: none; font-size: 22px; cursor: pointer; margin-right: 12px; color: var(--tm); }
-    .ca { padding: 24px; max-width: 1400px; margin: 0 auto; width: 100%; flex: 1; }
-    .vw { display: none; }
-    .vw.act { display: block; }
-    .card-box { background: #fff; border-radius: 12px; border: 1px solid var(--bd); padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
-    label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
-    input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--bd); border-radius: 8px; font-size: 14px; outline: none; font-family: inherit; }
-    input:focus, textarea:focus, select:focus { border-color: var(--ac); }
-    .btn { padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; font-size: 13px; transition: .2s; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
-    .bp { background: var(--ac); color: #fff; }
-    .bp:hover { background: var(--ac2); }
-    .bo { background: transparent; border: 1px solid var(--bd); color: var(--tm); }
-    .bo:hover { background: #f1f5f9; }
-    .bs { background: var(--ok); color: #fff; }
-    .bs:hover { background: #059669; }
-    .br { background: var(--er); color: #fff; }
-    .br:hover { background: #dc2626; }
-    .loading { display: none; text-align: center; padding: 40px; color: var(--mu); }
-    .loading.show { display: block; }
-    .toast { position: fixed; bottom: 24px; right: 24px; background: #1e293b; color: #fff; padding: 12px 20px; border-radius: 8px; display: none; z-index: 300; font-size: 14px; max-width: 400px; box-shadow: 0 4px 12px rgba(0,0,0,.15); }
-    .state-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-    .state-btn { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--bd); background: #fff; color: var(--tm); transition: .2s; }
-    .state-btn:hover { background: var(--ac); color: #fff; border-color: var(--ac); }
-    .state-btn.act { background: var(--ac); color: #fff; border-color: var(--ac); }
-    .auto-bar { display: none; background: #e0f2fe; border: 1px solid var(--ac); border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 13px; color: #075985; align-items: center; justify-content: space-between; }
-    .auto-bar.show { display: flex; }
-    .neighborhood-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; max-height: 120px; overflow-y: auto; padding: 8px; background: #f8fafc; border-radius: 8px; border: 1px solid var(--bd); }
-    .nb-tag { padding: 4px 10px; background: #fff; border: 1px solid var(--bd); border-radius: 6px; font-size: 12px; display: inline-flex; align-items: center; gap: 4px; }
-    .nb-tag span { cursor: pointer; color: var(--er); font-weight: 700; }
-    .debug-log { background: #0f172a; color: #4ade80; padding: 12px 16px; border-radius: 8px; font-family: monospace; font-size: 12px; margin-top: 12px; max-height: 180px; overflow-y: auto; display: none; }
-    .debug-log.show { display: block; }
-    .debug-log div { padding: 2px 0; border-bottom: 1px solid #1e293b; }
-    table { width: 100%; border-collapse: collapse; text-align: left; }
-    th { padding: 12px 16px; border-bottom: 2px solid var(--bd); color: var(--mu); font-size: 11px; text-transform: uppercase; font-weight: 600; }
-    td { padding: 14px 16px; border-bottom: 1px solid var(--bd); font-size: 14px; vertical-align: middle; }
-    tr:hover { background: #f8fafc; }
-    .kanban-board { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 16px; min-height: 600px; }
-    .kanban-col { flex: 1; min-width: 260px; background: #f8fafc; border-radius: 12px; border: 1px solid var(--bd); display: flex; flex-direction: column; }
-    .kanban-col.drag-over { border: 2px dashed var(--ac); background: #e0f2fe; }
-    .kc-header { padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--bd); }
-    .kc-title { font-size: 13px; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
-    .kc-count { background: #fff; border: 1px solid var(--bd); border-radius: 12px; padding: 1px 8px; font-size: 11px; color: var(--mu); }
-    .kc-body { padding: 12px; flex: 1; overflow-y: auto; max-height: 550px; min-height: 100px; }
-    .lead-card { background: #fff; border: 1px solid var(--bd); border-radius: 8px; padding: 12px; margin-bottom: 8px; cursor: grab; transition: .2s; }
-    .lead-card:hover { border-color: var(--ac); box-shadow: 0 2px 8px rgba(14,165,233,.15); }
-    .lead-card.dragging { opacity: .5; }
-    .lc-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .lc-info { font-size: 12px; color: var(--mu); display: flex; flex-direction: column; gap: 2px; }
-    .lc-days { font-size: 10px; color: #94a3b8; margin-top: 4px; }
-    .mo { position: fixed; inset: 0; background: rgba(15,23,42,.6); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
-    .md { background: #fff; width: 100%; max-width: 600px; border-radius: 16px; padding: 32px; position: relative; max-height: 90vh; overflow-y: auto; }
-    .cm { position: absolute; top: 16px; right: 16px; cursor: pointer; font-size: 24px; color: var(--mu); background: none; border: none; }
-    .detail-section { margin-bottom: 20px; }
-    .detail-label { font-size: 11px; color: var(--mu); text-transform: uppercase; margin-bottom: 4px; font-weight: 600; }
-    .detail-value { font-size: 14px; }
-    .touch-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 12px 16px; border: 1px solid var(--bd); border-radius: 8px; margin-bottom: 8px; cursor: pointer; font-size: 13px; font-weight: 500; transition: .2s; background: #fff; }
-    .touch-btn:hover { border-color: var(--ac); background: #f0f9ff; }
-    .touch-btn.done { background: #f0fdf4; border-color: #86efac; color: #166534; }
-    .touch-info { display: flex; align-items: center; gap: 8px; }
-    .touch-status { font-size: 11px; color: var(--mu); }
-    .filter-bar { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; margin-bottom: 20px; }
-    .filter-bar > div { min-width: 140px; flex: 1; }
-    .filter-bar input, .filter-bar select { padding: 8px 10px; font-size: 13px; }
-    .kanban-wrapper { display: flex; flex-direction: column; height: calc(100vh - 200px); }
-    .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
-    .badge-wa { background: #d1fae5; color: #065f46; }
-    .badge-no-wa { background: #fee2e2; color: #991b1b; }
-    .hidden-map { display: none; }
-    .backup-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    @media(max-width: 900px) {
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    :root { --primary: #0ea5e9; --primary-dark: #0284c7; --bg: #f8fafc; --sidebar: #0f172a; --text: #1e293b; --muted: #64748b; --border: #e2e8f0; --success: #10b981; --danger: #ef4444; --warning: #f59e0b; }
+    body { background: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; }
+    
+    /* Auth Screen */
+    #auth-screen { position: fixed; inset: 0; background: var(--bg); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .auth-card { background: #fff; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 400px; text-align: center; border: 1px solid var(--border); }
+    .auth-card h1 { color: var(--primary); font-size: 24px; margin-bottom: 8px; }
+    .auth-card p { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+    .auth-card input { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px; outline: none; }
+    .auth-card button { width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; margin-bottom: 8px; transition: 0.2s; }
+    .btn-login { background: var(--primary); color: #fff; }
+    .btn-signup { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+    
+    /* Layout */
+    aside { width: 260px; background: var(--sidebar); color: #fff; height: 100vh; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; z-index: 100; transition: 0.3s; }
+    main { flex: 1; margin-left: 260px; padding: 24px; min-height: 100vh; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; background: #fff; padding: 16px 24px; border-radius: 12px; border: 1px solid var(--border); }
+    
+    /* Sidebar Nav */
+    .nav-item { padding: 12px 24px; display: flex; align-items: center; gap: 12px; color: #94a3b8; text-decoration: none; cursor: pointer; border: none; background: none; width: 100%; font-size: 15px; transition: 0.2s; }
+    .nav-item:hover, .nav-item.active { background: #1e293b; color: #fff; }
+    .nav-item.logout { margin-top: auto; color: #f87171; }
+    
+    /* Components */
+    .card { background: #fff; border-radius: 12px; border: 1px solid var(--border); padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+    .grid-search { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; align-items: flex-end; }
+    label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+    select, input, textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; }
+    .btn { padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; }
+    .btn-p { background: var(--primary); color: #fff; }
+    .btn-s { background: var(--success); color: #fff; }
+    .btn-d { background: var(--danger); color: #fff; }
+    .btn-o { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    
+    /* Neighborhood Tags */
+    .nb-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; padding: 12px; background: #f1f5f9; border-radius: 8px; min-height: 50px; }
+    .nb-tag { background: #fff; border: 1px solid var(--border); padding: 4px 10px; border-radius: 20px; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+    .nb-tag span { cursor: pointer; color: var(--danger); font-weight: bold; }
+    
+    /* Table */
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    th { text-align: left; padding: 12px; border-bottom: 2px solid var(--border); color: var(--muted); font-size: 12px; text-transform: uppercase; }
+    td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 14px; }
+    
+    /* Kanban */
+    .kanban-container { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 20px; align-items: flex-start; }
+    .kanban-col { background: #f1f5f9; border-radius: 12px; min-width: 280px; max-width: 280px; min-height: 500px; display: flex; flex-direction: column; }
+    .kanban-header { padding: 16px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; border-bottom: 2px solid rgba(0,0,0,0.05); }
+    .kanban-list { padding: 12px; flex: 1; }
+    .lead-card { background: #fff; border-radius: 8px; padding: 12px; margin-bottom: 12px; border: 1px solid var(--border); cursor: grab; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    .lead-card h4 { font-size: 14px; margin-bottom: 4px; }
+    .lead-card p { font-size: 12px; color: var(--muted); }
+    
+    /* Modal */
+    .modal { position: fixed; inset: 0; background: rgba(15,23,42,0.5); z-index: 500; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .modal-content { background: #fff; border-radius: 16px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; padding: 32px; position: relative; }
+    .close-modal { position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; border: none; background: none; }
+    
+    /* Utils */
+    .debug-log { background: #0f172a; color: #4ade80; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 12px; max-height: 150px; overflow-y: auto; margin-top: 12px; }
+    .toast { position: fixed; bottom: 24px; right: 24px; padding: 12px 24px; border-radius: 8px; background: var(--sidebar); color: #fff; z-index: 2000; display: none; animation: slideIn 0.3s ease; }
+    @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    .hidden { display: none; }
+    .badge { padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    .badge-wa { background: #dcfce7; color: #28b65e; }
+    .badge-nowa { background: #fee2e2; color: #ff3131; }
+
+    @media (max-width: 768px) {
       aside { transform: translateX(-100%); }
-      aside.open { transform: translateX(0); }
       main { margin-left: 0; }
-      .hamb { display: block; }
-      .kanban-board { flex-direction: column; }
-      .kanban-col { min-width: auto; }
-      .filter-bar > div { min-width: 100%; }
+      .kanban-container { flex-direction: column; }
+      .kanban-col { width: 100%; max-width: 100%; min-height: auto; }
     }
   </style>
 </head>
 <body>
-  <div id="map-hidden" class="hidden-map"></div>
 
   <div id="auth-screen">
     <div class="auth-card">
-      <h2>TABUADA BRASIL</h2>
+      <h1>Tabuada Brasil</h1>
       <p>CRM de Leads Online</p>
       <input type="email" id="auth-email" placeholder="E-mail">
-      <input type="password" id="auth-pass" placeholder="Senha">
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <button class="btn bp" style="justify-content:center" onclick="handleAuth('login')">Entrar</button>
-        <button class="btn bo" style="justify-content:center" onclick="handleAuth('signup')">Criar Conta</button>
-      </div>
-      <div class="auth-error" id="auth-error"></div>
+      <input type="password" id="auth-password" placeholder="Senha">
+      <button class="btn-login" onclick="handleAuth('login')">Entrar</button>
+      <button class="btn-signup" onclick="handleAuth('signup')">Criar Conta</button>
+      <div id="auth-msg" style="margin-top:12px; font-size:13px; color:var(--danger)"></div>
     </div>
   </div>
 
-  <aside id="sidebar">
-    <div class="sh">
-      <h1>TABUADA BRASIL</h1>
-      <div style="font-size:11px;color:#64748b;margin-top:4px">CRM Online</div>
+  <aside id="sidebar" class="hidden">
+    <div style="padding: 24px; text-align: center; border-bottom: 1px solid #1e293b;">
+      <h2 style="font-size: 18px; color: var(--primary);">Tabuada Brasil</h2>
     </div>
-    <nav style="flex:1;padding:20px 0">
-      <button class="ni act" onclick="showView('busca',this)"><span>🔍</span> Busca de Leads</button>
-      <button class="ni" onclick="showView('kanban',this)"><span>📋</span> Kanban CRM</button>
-      <button class="ni" onclick="showView('config',this)"><span>⚙️</span> Configurações</button>
-      <button class="ni" onclick="logout()" style="margin-top:40px;color:var(--er)"><span>🚪</span> Sair</button>
+    <nav style="padding: 16px 0;">
+      <button class="nav-item active" onclick="switchTab('busca')"><span>🔍</span> Busca de Leads</button>
+      <button class="nav-item" onclick="switchTab('kanban')"><span>📋</span> Kanban CRM</button>
+      <button class="nav-item" onclick="switchTab('config')"><span>⚙️</span> Configurações</button>
+      <button class="nav-item logout" onclick="handleLogout()"><span>🚪</span> Sair</button>
     </nav>
-    <div style="padding:20px 24px;border-top:1px solid #1e293b;font-size:11px;color:#64748b">
-      <div>24ª Edição - 1º ao 9º ano</div>
-      <div style="margin-top:4px;color:#475569">AKS Editora - RJ</div>
-    </div>
   </aside>
 
-  <main>
+  <main id="main-content" class="hidden">
     <header>
-      <div style="display:flex;align-items:center">
-        <button class="hamb" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-        <span style="font-weight:600;font-size:18px" id="vt">Busca de Leads</span>
-      </div>
-      <span style="color:var(--mu);font-size:14px" id="user-email"></span>
+      <h2 id="tab-title">Busca de Leads</h2>
+      <div id="user-info" style="font-size: 14px; color: var(--muted);"></div>
     </header>
 
-    <div class="ca">
-      <div id="view-busca" class="vw act">
-        <div class="card-box">
-          <label>Estado</label>
-          <div class="state-btns">
-            <div class="state-btn act" onclick="setState('Rio de Janeiro',this)">Rio de Janeiro</div>
-            <div class="state-btn" onclick="setState('São Paulo',this)">São Paulo</div>
-            <div class="state-btn" onclick="setState('Espírito Santo',this)">Espírito Santo</div>
-            <div class="state-btn" onclick="setState('Minas Gerais',this)">Minas Gerais</div>
+    <!-- Tab: Busca -->
+    <section id="tab-busca" class="tab-content">
+      <div class="card">
+        <div class="grid-search">
+          <div>
+            <label>Estado</label>
+            <select id="search-state">
+              <option value="Rio de Janeiro">Rio de Janeiro</option>
+              <option value="São Paulo">São Paulo</option>
+              <option value="Espírito Santo">Espírito Santo</option>
+              <option value="Minas Gerais">Minas Gerais</option>
+            </select>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr auto auto;gap:12px;align-items:end;margin-top:16px">
-            <div>
-              <label>Tipo de Estabelecimento</label>
-              <select id="search-type">
-                <option value="papelaria">Papelaria</option>
-                <option value="livraria">Livraria</option>
-                <option value="material escolar">Material Escolar</option>
-                <option value="papelaria e livraria">Papelaria e Livraria</option>
-                <option value="custom">Personalizado</option>
-              </select>
-            </div>
-            <div>
-              <label>Cidade / Região</label>
-              <input type="text" id="search-loc" value="Rio de Janeiro">
-            </div>
-            <div><button class="btn bp" style="height:42px" onclick="doSearch(false)">Buscar</button></div>
-            <div><button class="btn bs" style="height:42px" onclick="doSearch(true)" id="btn-search-all">⚡ Buscar Tudo</button></div>
+          <div>
+            <label>Tipo</label>
+            <select id="search-type">
+              <option value="papelaria">Papelaria</option>
+              <option value="livraria">Livraria</option>
+              <option value="material escolar">Material Escolar</option>
+              <option value="papelaria e livraria">Papelaria e Livraria</option>
+              <option value="custom">Personalizado</option>
+            </select>
           </div>
-          <div class="auto-bar" id="auto-bar">
-            <div id="auto-status">⏳ Iniciando...</div>
-            <button class="btn br" style="padding:4px 12px;font-size:11px" onclick="stopAuto()">Parar</button>
+          <div>
+            <label>Cidade/Região</label>
+            <input type="text" id="search-city" placeholder="Ex: Niterói">
           </div>
-          <div class="debug-log" id="debug-log"></div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-p" onclick="startSearch(false)">Buscar</button>
+            <button class="btn btn-s" onclick="startSearch(true)">Buscar Tudo</button>
+          </div>
         </div>
 
-        <div class="card-box">
-          <label>Bairros para busca automática</label>
-          <div style="font-size:12px;color:var(--mu);margin-top:4px">Cada bairro traz até 60 resultados. Deixe vazio para buscar só pela cidade.</div>
-          <div class="neighborhood-list" id="nb-list"></div>
-          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-            <input type="text" id="nb-input" placeholder="Adicionar bairro..." style="flex:1;min-width:150px">
-            <select id="nb-preset" onchange="loadPreset()" style="width:200px">
-              <option value="">Carregar lista...</option>
-              <option value="rj">Rio de Janeiro - Zona Sul</option>
-              <option value="rjn">Rio de Janeiro - Zona Norte</option>
-              <option value="rjo">Rio de Janeiro - Oeste</option>
-              <option value="rjc">Rio de Janeiro - Centro</option>
-              <option value="sp">São Paulo - Capital</option>
+        <div style="margin-top: 20px;">
+          <label>Bairros (Opcional - para busca detalhada)</label>
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <input type="text" id="nb-input" placeholder="Nome do bairro" style="flex:1">
+            <button class="btn btn-o" onclick="addNb()">Adicionar</button>
+            <select id="nb-presets" onchange="loadPreset(this.value)" style="width:180px">
+              <option value="">Presets...</option>
+              <option value="rj_sul">RJ - Zona Sul</option>
+              <option value="rj_norte">RJ - Zona Norte</option>
+              <option value="rj_oeste">RJ - Zona Oeste</option>
+              <option value="rj_centro">RJ - Centro</option>
+              <option value="sp_cap">SP - Capital</option>
               <option value="bh">Belo Horizonte</option>
               <option value="vix">Vitória/Vila Velha</option>
             </select>
-            <button class="btn bo" onclick="addNeighborhood()">+ Adicionar</button>
-            <button class="btn br" onclick="clearAllNeighborhoods()">🗑️ Limpar Tudo</button>
           </div>
+          <div class="nb-container" id="nb-list"></div>
         </div>
+        
+        <div id="debug" class="debug-log">Aguardando busca...</div>
+      </div>
 
-        <div id="search-loading" class="loading">⏳ Buscando...</div>
-        <div class="card-box" id="results-card" style="display:none">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px">
-            <strong>Resultados</strong>
-            <div style="display:flex;gap:8px;align-items:center">
-              <span id="result-count" style="font-size:13px;color:var(--mu)"></span>
-              <button class="btn bs" onclick="saveAllResults()" style="font-size:12px;padding:6px 12px">💾 Salvar Tudo</button>
+      <div class="card">
+        <h3>Resultados</h3>
+        <div style="overflow-x: auto;">
+          <table id="results-table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
+                <th>Nota</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Kanban -->
+    <section id="tab-kanban" class="tab-content hidden">
+      <div class="card" style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+        <div style="flex:1; min-width:200px;">
+          <label>Filtrar por nome</label>
+          <input type="text" id="filter-name" oninput="renderKanban()">
+        </div>
+        <div>
+          <label>Estado</label>
+          <select id="filter-state" onchange="renderKanban()">
+            <option value="">Todos</option>
+            <option value="Rio de Janeiro">RJ</option>
+            <option value="São Paulo">SP</option>
+            <option value="Espírito Santo">ES</option>
+            <option value="Minas Gerais">MG</option>
+          </select>
+        </div>
+        <div>
+          <label>WhatsApp</label>
+          <select id="filter-wa" onchange="renderKanban()">
+            <option value="">Todos</option>
+            <option value="sim">Com WhatsApp</option>
+            <option value="nao">Sem WhatsApp</option>
+          </select>
+        </div>
+        <button class="btn btn-o" onclick="exportCSV()">Exportar CSV</button>
+      </div>
+
+      <div class="kanban-container" id="kanban-board"></div>
+    </section>
+
+    <!-- Tab: Config -->
+    <section id="tab-config" class="tab-content hidden">
+      <div class="card">
+        <h3>APIs</h3>
+        <div style="margin-top:16px;">
+          <label>Google Maps API Key</label>
+          <input type="password" id="cfg-maps-key">
+        </div>
+      </div>
+      <div class="card">
+        <h3>Mensagens de Cadência</h3>
+        <div style="margin-top:16px; display:grid; gap:16px;">
+          <div>
+            <label>Toque 1 (Identificação)</label>
+            <textarea id="cfg-t1" rows="3"></textarea>
+          </div>
+          <div>
+            <label>Toque 2 (Material)</label>
+            <textarea id="cfg-t2" rows="3"></textarea>
+          </div>
+          <div>
+            <label>Toque 3 (Fechamento)</label>
+            <textarea id="cfg-t3" rows="3"></textarea>
+          </div>
+          <button class="btn btn-p" onclick="saveConfig()">Salvar Configurações</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Dados</h3>
+        <div style="display:flex; gap:12px; margin-top:16px;">
+          <button class="btn btn-o" onclick="exportBackup()">Exportar Backup (JSON)</button>
+          <button class="btn btn-o" onclick="document.getElementById('import-file').click()">Importar Backup</button>
+          <input type="file" id="import-file" class="hidden" onchange="importBackup(event)">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Detalhes -->
+  <div class="modal" id="modal-lead">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <div id="map-container" class="hidden"></div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+  <script>
+    // Configurações Iniciais
+    const firebaseConfig = {
+      apiKey: "AIzaSyAvDsUZibY2-y_BbQctAJcV34RH8Du_SEE",
+      authDomain: "tabuada-brasil-crm.firebaseapp.com",
+      projectId: "tabuada-brasil-crm",
+      storageBucket: "tabuada-brasil-crm.firebasestorage.app",
+      messagingSenderId: "754559100157",
+      appId: "1:754559100157:web:24e43949e8dd062fd24a94"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    
+    let currentUser = null;
+    let leads = [];
+    let neighborhoods = [];
+    let mapsKey = "AIzaSyBCaaGLCRGfmrGrRPwEEiIq5WtiU-0-RYY";
+    let messages = {
+      t1: "Olá {nome}, vi que vocês são uma referência em {cidade}. Trabalhamos com a Tabuada Brasil, material didático de alta rotatividade. Podemos conversar?",
+      t2: "Oi {nome}, segue o catálogo da Tabuada Brasil para sua loja em {cidade}. Temos condições especiais para este mês.",
+      t3: "Olá {nome}, gostaria de fechar seu primeiro pedido da Tabuada Brasil? Restam poucas unidades para sua região."
+    };
+
+    const stages = [
+      { id: 'novo', label: 'Novo' },
+      { id: 'toque1', label: 'Toque 1 Enviado' },
+      { id: 'respondeu', label: 'Respondeu' },
+      { id: 'qualificado', label: 'Qualificado' },
+      { id: 'pedido', label: 'Pedido Fechado' }
+    ];
+
+    const presets = {
+      rj_sul: ['Copacabana', 'Ipanema', 'Leblon', 'Botafogo', 'Flamengo', 'Laranjeiras'],
+      rj_norte: ['Tijuca', 'Méier', 'Madureira', 'Ilha do Governador', 'Penha'],
+      rj_oeste: ['Barra da Tijuca', 'Recreio', 'Jacarepaguá', 'Campo Grande', 'Bangu'],
+      rj_centro: ['Centro', 'Lapa', 'Santa Teresa'],
+      sp_cap: ['Centro', 'Jardins', 'Itaim Bibi', 'Moema', 'Pinheiros', 'Vila Mariana', 'Tatuapé', 'Santana'],
+      bh: ['Savassi', 'Lourdes', 'Pampulha', 'Buritis', 'Sion', 'Funcionários'],
+      vix: ['Praia do Canto', 'Jardim da Penha', 'Itapoã', 'Praia da Costa', 'Centro']
+    };
+
+    // Auth Logic
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        currentUser = user;
+        document.getElementById('auth-screen').classList.add('hidden');
+        document.getElementById('sidebar').classList.remove('hidden');
+        document.getElementById('main-content').classList.remove('hidden');
+        document.getElementById('user-info').innerText = user.email;
+        loadConfig();
+        syncLeads();
+      } else {
+        document.getElementById('auth-screen').classList.remove('hidden');
+        document.getElementById('sidebar').classList.add('hidden');
+        document.getElementById('main-content').classList.add('hidden');
+      }
+    });
+
+    window.handleAuth = async function(type) {
+      const email = document.getElementById('auth-email').value;
+      const pass = document.getElementById('auth-password').value;
+      const msg = document.getElementById('auth-msg');
+      try {
+        if (type === 'login') await auth.signInWithEmailAndPassword(email, pass);
+        else await auth.createUserWithEmailAndPassword(email, pass);
+      } catch (e) { msg.innerText = e.message; }
+    };
+
+    window.handleLogout = function() { auth.signOut(); };
+
+    // Tab Logic
+    window.switchTab = function(tabId) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
+      if (event && event.currentTarget) event.currentTarget.classList.add('active');
+      const titles = { busca: 'Busca de Leads', kanban: 'Kanban CRM', config: 'Configurações' };
+      document.getElementById('tab-title').innerText = titles[tabId];
+      if (tabId === 'kanban') renderKanban();
+    };
+
+    // Config & Backup
+    async function loadConfig() {
+      const doc = await db.collection('configs').doc(currentUser.uid).get();
+      if (doc.exists) {
+        const data = doc.data();
+        mapsKey = data.mapsKey || mapsKey;
+        messages = data.messages || messages;
+      }
+      document.getElementById('cfg-maps-key').value = mapsKey;
+      document.getElementById('cfg-t1').value = messages.t1;
+      document.getElementById('cfg-t2').value = messages.t2;
+      document.getElementById('cfg-t3').value = messages.t3;
+      loadGoogleMaps();
+    }
+
+    window.saveConfig = async function() {
+      messages = {
+        t1: document.getElementById('cfg-t1').value,
+        t2: document.getElementById('cfg-t2').value,
+        t3: document.getElementById('cfg-t3').value
+      };
+      mapsKey = document.getElementById('cfg-maps-key').value;
+      await db.collection('configs').doc(currentUser.uid).set({ mapsKey, messages });
+      showToast('Configurações salvas!');
+    };
+
+    window.exportBackup = function() {
+      const data = JSON.stringify({ leads, messages, mapsKey });
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `backup-crm-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+    };
+
+    window.importBackup = function(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const data = JSON.parse(e.target.result);
+        if (data.leads) {
+          for (let lead of data.leads) {
+            delete lead.id;
+            await db.collection('leads').add({ ...lead, userId: currentUser.uid });
+          }
+        }
+        showToast('Backup importado com sucesso!');
+      };
+      reader.readAsText(file);
+    };
+
+    // Google Maps Search Logic
+    let placesService;
+    function loadGoogleMaps() {
+      if (window.google) return;
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${mapsKey}&libraries=places`;
+      script.onload = () => {
+        placesService = new google.maps.places.PlacesService(document.getElementById('map-container'));
+      };
+      document.head.appendChild(script);
+    }
+
+    window.addNb = function() {
+      const val = document.getElementById('nb-input').value.trim();
+      if (val && !neighborhoods.includes(val)) {
+        neighborhoods.push(val);
+        renderNbs();
+        document.getElementById('nb-input').value = '';
+      }
+    };
+
+    window.loadPreset = function(key) {
+      if (presets[key]) {
+        neighborhoods = [...new Set([...neighborhoods, ...presets[key]])];
+        renderNbs();
+      }
+    };
+
+    function renderNbs() {
+      const container = document.getElementById('nb-list');
+      container.innerHTML = neighborhoods.map((n, i) => `
+        <div class="nb-tag">${n} <span onclick="removeNb(${i})">&times;</span></div>
+      `).join('');
+    }
+
+    window.removeNb = function(i) {
+      neighborhoods.splice(i, 1);
+      renderNbs();
+    };
+
+    function log(msg) {
+      const d = document.getElementById('debug');
+      d.innerHTML += `<div>> ${msg}</div>`;
+      d.scrollTop = d.scrollHeight;
+    }
+
+    window.startSearch = async function(all) {
+      if (!window.google) return showToast('Google Maps não carregado');
+      const state = document.getElementById('search-state').value;
+      const type = document.getElementById('search-type').value;
+      const city = document.getElementById('search-city').value;
+      const tbody = document.querySelector('#results-table tbody');
+      tbody.innerHTML = '';
+      document.getElementById('debug').innerHTML = '';
+      
+      const queries = neighborhoods.length > 0 && all 
+        ? neighborhoods.map(n => `${type} em ${n}, ${city}, ${state}`)
+        : [`${type} em ${city}, ${state}`];
+
+      for (let query of queries) {
+        log(`Buscando: ${query}`);
+        const request = { query, locationBias: { radius: 5000 } };
+        placesService.textSearch(request, (results, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            log(`Encontrados ${results.length} resultados`);
+            results.forEach(place => renderResult(place, state, city));
+          }
+        });
+        await new Promise(r => setTimeout(r, 1000));
+      }
+    };
+
+    function renderResult(place, state, city) {
+      const tbody = document.querySelector('#results-table tbody');
+      const tr = document.createElement('tr');
+      tr.setAttribute('data-pid', place.place_id);
+      const isSaved = leads.find(l => l.placeId === place.place_id);
+      
+      tr.innerHTML = `
+        <td><strong>${place.name}</strong></td>
+        <td id="phone-${place.place_id}">Carregando...</td>
+        <td>${place.formatted_address}</td>
+        <td>⭐ ${place.rating || 'N/A'}</td>
+        <td>
+          <button class="btn ${isSaved ? 'btn-o' : 'btn-p'}" 
+            onclick="saveLead('${place.place_id}', '${place.name.replace(/'/g, "")}', '${place.formatted_address.replace(/'/g, "")}', ${place.rating || 0}, '${state}', '${city}')"
+            ${isSaved ? 'disabled' : ''}>
+            ${isSaved ? 'Salvo' : 'Salvar'}
+          </button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+
+      placesService.getDetails({ placeId: place.place_id, fields: ['formatted_phone_number'] }, (details, status) => {
+        const phoneTd = document.getElementById(`phone-${place.place_id}`);
+        if (status === google.maps.places.PlacesServiceStatus.OK && details.formatted_phone_number) {
+          phoneTd.innerText = details.formatted_phone_number;
+          tr.dataset.phone = details.formatted_phone_number;
+        } else {
+          phoneTd.innerText = 'N/A';
+        }
+      });
+    }
+
+    window.saveLead = async function(placeId, name, address, rating, state, city) {
+      const phone = document.querySelector(`tr[data-pid="${placeId}"]`)?.dataset?.phone || '';
+      const lead = {
+        placeId, name, address, rating, state, city, phone,
+        stage: 'novo',
+        touches: { t1: false, t2: false, t3: false },
+        notes: '',
+        createdAt: new Date().toISOString(),
+        userId: currentUser.uid
+      };
+      await db.collection('leads').add(lead);
+      showToast('Lead salvo no CRM!');
+      const btn = event.target;
+      btn.innerText = 'Salvo';
+      btn.disabled = true;
+      btn.className = 'btn btn-o';
+    };
+
+    // Kanban Logic
+    function syncLeads() {
+      db.collection('leads').where('userId', '==', currentUser.uid)
+        .onSnapshot(snap => {
+          leads = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          if (document.getElementById('tab-kanban').classList.contains('active')) renderKanban();
+        });
+    }
+
+    window.renderKanban = function() {
+      const board = document.getElementById('kanban-board');
+      board.innerHTML = '';
+      
+      const filterName = document.getElementById('filter-name').value.toLowerCase();
+      const filterState = document.getElementById('filter-state').value;
+      const filterWa = document.getElementById('filter-wa').value;
+
+      stages.forEach(stage => {
+        const col = document.createElement('div');
+        col.className = 'kanban-col';
+        col.innerHTML = `
+          <div class="kanban-header">
+            ${stage.label} 
+            <span style="background:#cbd5e1; padding:2px 6px; border-radius:10px; font-size:10px">
+              ${leads.filter(l => l.stage === stage.id).length}
+            </span>
+          </div>
+          <div class="kanban-list" ondrop="drop(event, '${stage.id}')" ondragover="allowDrop(event)"></div>
+        `;
+        
+        const list = col.querySelector('.kanban-list');
+        leads.filter(l => {
+          const matchName = l.name.toLowerCase().includes(filterName);
+          const matchState = !filterState || l.state === filterState;
+          const hasWa = l.phone && l.phone.length > 5;
+          const matchWa = !filterWa || (filterWa === 'sim' ? hasWa : !hasWa);
+          return l.stage === stage.id && matchName && matchState && matchWa;
+        }).forEach(lead => {
+          const card = document.createElement('div');
+          card.className = 'lead-card';
+          card.draggable = true;
+          card.ondragstart = (e) => e.dataTransfer.setData("text", lead.id);
+          card.onclick = () => openLead(lead);
+          const hasWa = lead.phone && lead.phone.length > 5;
+          card.innerHTML = `
+            <h4>${lead.name}</h4>
+            <p>${lead.city} - ${lead.state}</p>
+            <div style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
+              <span class="badge ${hasWa ? 'badge-wa' : 'badge-nowa'}">${hasWa ? 'WhatsApp' : 'Sem Tel'}</span>
+              <span style="font-size:10px; color:#94a3b8;">${lead.touches.t1 ? '①' : ''}${lead.touches.t2 ? '②' : ''}${lead.touches.t3 ? '③' : ''}</span>
             </div>
-          </div>
-          <div style="overflow-x:auto">
-            <table id="results-table">
-              <thead><tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Nota</th><th>Ação</th></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+          `;
+          list.appendChild(card);
+        });
+        board.appendChild(col);
+      });
+    };
 
-      <div id="view-kanban" class="vw">
-        <div class="filter-bar">
-          <div><label>Buscar</label><input type="text" id="kanban-filter" placeholder="Nome do lead..." oninput="renderKanban()"></div>
-          <div><label>Estado</label><select id="kanban-state" onchange="renderKanban()"><option value="todos">Todos</option><option value="Rio de Janeiro">Rio de Janeiro</option><option value="São Paulo">São Paulo</option><option value="Espírito Santo">Espírito Santo</option><option value="Minas Gerais">Minas Gerais</option></select></div>
-          <div><label>WhatsApp</label><select id="kanban-wa" onchange="renderKanban()"><option value="todos">Todos</option><option value="com">Com WhatsApp</option><option value="sem">Sem WhatsApp</option></select></div>
-          <div style="display:flex;gap:8px;align-items:end"><button class="btn bo" onclick="exportCSV()">📥 CSV</button></div>
-        </div>
-        <div class="kanban-wrapper"><div class="kanban-board" id="kanban-board"></div></div>
-      </div>
+    window.allowDrop = function(ev) { ev.preventDefault(); };
+    window.drop = function(ev, stageId) {
+      ev.preventDefault();
+      const id = ev.dataTransfer.getData("text");
+      db.collection('leads').doc(id).update({ stage: stageId });
+    };
 
-      <div id="view-config" class="vw">
-        <div class="card-box">
-          <h3 style="margin-bottom:20px">Configurações de API</h3>
-          <div style="margin-bottom:16px"><label>Google Maps API Key</label><input type="password" id="cfg-key" placeholder="Sua chave da API"><div style="font-size:12px;color:var(--mu);margin-top:4px">Habilite Maps JavaScript API e Places API no Google Cloud Console.</div></div>
-          <button class="btn bp" onclick="saveConfig()">Salvar</button>
+    // Lead Detail & Cadence
+    window.openLead = function(lead) {
+      const modal = document.getElementById('modal-lead');
+      const body = document.getElementById('modal-body');
+      
+      body.innerHTML = `
+        <h2 style="margin-bottom:8px;">${lead.name}</h2>
+        <p style="color:var(--muted); margin-bottom:20px;">${lead.address}</p>
+        
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+          <div>
+            <label>Telefone</label>
+            <div style="font-size:14px;">${lead.phone || 'N/A'}</div>
+          </div>
+          <div>
+            <label>Cidade/Estado</label>
+            <div style="font-size:14px;">${lead.city} / ${lead.state}</div>
+          </div>
         </div>
-        <div class="card-box">
-          <h3 style="margin-bottom:20px">Mensagens
+
+        <div style="margin-bottom:24px;">
+          <label>Notas do Lead</label>
+          <textarea id="lead-notes" rows="4" style="margin-bottom:8px;">${lead.notes || ''}</textarea>
+          <button class="btn btn-o" onclick="updateNotes('${lead.id}')">Salvar Notas</button>
+        </div>
+
+        <div style="margin-bottom:24px;">
+          <label>Cadência de Vendas</label>
+          <div style="display:flex; gap:8px; margin-top:8px;">
+            <button class="btn ${lead.touches.t1 ? 'btn-s' : 'btn-p'}" onclick="sendWa('${lead.id}', 1)">
+              ${lead.touches.t1 ? '✓ Toque 1' : 'Toque 1'}
+            </button>
+            <button class="btn ${lead.touches.t2 ? 'btn-s' : 'btn-p'}" onclick="sendWa('${lead.id}', 2)">
+              ${lead.touches.t2 ? '✓ Toque 2' : 'Toque 2'}
+            </button>
+            <button class="btn ${lead.touches.t3 ? 'btn-s' : 'btn-p'}" onclick="sendWa('${lead.id}', 3)">
+              ${lead.touches.t3 ? '✓ Toque 3' : 'Toque 3'}
+            </button>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border); padding-top:20px; display:flex; justify-content:space-between;">
+          <button class="btn btn-d" onclick="deleteLead('${lead.id}')">Excluir Lead</button>
+          <button class="btn btn-o" onclick="closeModal()">Fechar</button>
+        </div>
+      `;
+      modal.style.display = 'flex';
+    };
+
+    window.updateNotes = async function(id) {
+      const notes = document.getElementById('lead-notes').value;
+      await db.collection('leads').doc(id).update({ notes });
+      showToast('Notas atualizadas!');
+    };
+
+    window.sendWa = async function(id, num) {
+      const lead = leads.find(l => l.id === id);
+      if (!lead.phone) return showToast('Lead sem telefone');
+      
+      let msg = messages['t' + num]
+        .replace(/{nome}/g, lead.name)
+        .replace(/{cidade}/g, lead.city);
+      
+      const cleanPhone = lead.phone.replace(/\D/g, '');
+      const waUrl = `https://wa.me/55${cleanPhone}?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, '_blank');
+
+      const touches = { ...lead.touches, ['t' + num]: true };
+      await db.collection('leads').doc(id).update({ touches });
+      showToast(`Toque ${num} registrado!`);
+      closeModal();
+    };
+
+    window.deleteLead = async function(id) {
+      if (confirm('Deseja realmente excluir este lead?')) {
+        await db.collection('leads').doc(id).delete();
+        closeModal();
+        showToast('Lead excluído');
+      }
+    };
+
+    window.closeModal = function() { document.getElementById('modal-lead').style.display = 'none'; };
+
+    // UI Utils
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerText = msg;
+      t.style.display = 'block';
+      setTimeout(() => t.style.display = 'none', 3000);
+    }
+
+    window.exportCSV = function() {
+      let csv = "Nome,Telefone,Endereco,Cidade,Estado,Etapa,Notas
+";
+      leads.forEach(l => {
+        csv += `"${l.name}","${l.phone}","${l.address}","${l.city}","${l.state}","${l.stage}","${l.notes.replace(/
+/g, ' ')}"
+`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'leads-crm.csv';
+      a.click();
+    };
+  </script>
+</body>
+</html>
