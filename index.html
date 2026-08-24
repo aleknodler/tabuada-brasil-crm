@@ -1,1 +1,622 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Tabuada Brasil - CRM</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif}:root{--p:#0ea5e9;--pd:#0284c7;--b:#f8fafc;--c:#fff;--t:#1e293b;--m:#64748b;--bd:#e2e8f0;--ok:#10b981;--er:#ef4444}body{background:var(--b);color:var(--t);display:flex;min-height:100vh}#auth{position:fixed;inset:0;background:var(--b);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px}.ac{background:var(--c);padding:40px;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,.1);width:100%;max-width:400px}.ac h2{color:var(--p);text-align:center;margin-bottom:8px}.ac p{color:var(--m);text-align:center;font-size:14px;margin-bottom:24px}.ac input{width:100%;padding:12px;margin-bottom:12px;border:1px solid var(--bd);border-radius:8px}.ac button{width:100%;padding:12px;border-radius:8px;border:none;font-weight:600;cursor:pointer;margin-bottom:8px}.abp{background:var(--p);color:#fff}.abo{background:#fff;color:var(--p);border:1px solid var(--p)}.ae{color:var(--er);font-size:12px;text-align:center;margin-top:8px}aside{width:260px;background:#0f172a;color:#fff;position:fixed;height:100vh;z-index:1000;display:flex;flex-direction:column}.sh{padding:24px;border-bottom:1px solid #1e293b}.sh h1{font-size:18px;color:var(--p)}.ni{padding:12px 24px;display:flex;align-items:center;color:#94a3b8;cursor:pointer;border:none;background:none;width:100%;font-size:14px}.ni:hover,.ni.a{background:#1e293b;color:#fff}.ni span{margin-right:12px}main{flex:1;margin-left:260px;min-height:100vh;width:calc(100% - 260px)}header{height:64px;background:#fff;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 32px}.hb{display:none}.ca{padding:24px;max-width:1400px;margin:0 auto}.v{display:none}.v.a{display:block}.cb{background:#fff;border-radius:12px;border:1px solid var(--bd);padding:24px;margin-bottom:24px}label{display:block;font-size:12px;font-weight:600;color:var(--m);margin-bottom:6px}input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:8px;font-size:14px}.btn{padding:10px 16px;border-radius:8px;font-weight:600;cursor:pointer;border:none;font-size:13px;display:inline-flex;align-items:center;gap:6px}.bp{background:var(--p);color:#fff}.bo{background:#fff;border:1px solid var(--bd);color:var(--t)}.bs{background:var(--ok);color:#fff}.br{background:var(--er);color:#fff}.sg{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.sc{padding:6px 14px;border-radius:20px;border:1px solid var(--bd);background:#fff;font-size:13px;cursor:pointer}.sc.a{background:var(--p);color:#fff;border-color:var(--p)}.nbl{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;padding:8px;background:#f1f5f9;border-radius:8px;min-height:50px}.nbt{padding:4px 10px;background:#fff;border:1px solid var(--bd);border-radius:6px;font-size:12px}.nbt span{cursor:pointer;color:var(--er);font-weight:700}.ld{display:none;text-align:center;padding:40px;color:var(--m)}.ld.s{display:block}table{width:100%;border-collapse:collapse;margin-top:12px}th{text-align:left;padding:12px;border-bottom:2px solid var(--bd);color:var(--m);font-size:11px;text-transform:uppercase}td{padding:12px;border-bottom:1px solid var(--bd);font-size:14px}.kb{display:flex;gap:16px;overflow-x:auto;padding-bottom:20px;min-height:500px}.kc{flex:1;min-width:280px;background:#f1f5f9;border-radius:12px;display:flex;flex-direction:column}.kch{padding:16px;display:flex;justify-content:space-between;font-weight:700;font-size:13px;color:var(--m);text-transform:uppercase}.kcb{padding:12px;flex:1}.lc{background:#fff;border:1px solid var(--bd);border-radius:8px;padding:12px;margin-bottom:10px;cursor:grab}.lc h4{font-size:14px;margin-bottom:4px}.lc p{font-size:12px;color:var(--m)}.bd{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700}.bw{background:#dcfce7;color:#166534}.bn{background:#fee2e2;color:#991b1b}.md{position:fixed;inset:0;background:rgba(15,23,42,.7);display:none;align-items:center;justify-content:center;padding:20px;z-index:3000}.mc{background:#fff;width:100%;max-width:600px;border-radius:16px;padding:32px;position:relative;max-height:90vh;overflow-y:auto}.cm{position:absolute;top:16px;right:16px;font-size:24px;cursor:pointer;border:none;background:none}.tb{display:flex;justify-content:space-between;width:100%;padding:14px;border:1px solid var(--bd);border-radius:8px;margin-bottom:8px;cursor:pointer;background:#fff}.tb.ok{background:#f0fdf4;border-color:var(--ok)}.tt{position:fixed;bottom:24px;right:24px;background:#1e293b;color:#fff;padding:12px 24px;border-radius:8px;display:none;z-index:4000}@media(max-width:900px){aside{transform:translateX(-100%)}aside.o{transform:translateX(0)}main{margin-left:0;width:100%}.hb{display:block}}</style></head><body><div id='mp' style='display:none'></div><div id='auth'><div class='ac'><h2>TABUADA BRASIL</h2><p>CRM de Leads</p><input type='email' id='ae' placeholder='E-mail'><input type='password' id='ap' placeholder='Senha'><button class='abp' onclick='ha(`login`)'>Entrar</button><button class='abo' onclick='ha(`signup`)'>Criar Conta</button><div class='ae' id='aer'></div></div></div><aside id='sb'><div class='sh'><h1>TABUADA BRASIL</h1></div><nav style='flex:1;padding-top:20px'><button class='ni a' onclick='sv(`busca`,this)'><span>🔍</span> Busca</button><button class='ni' onclick='sv(`kanban`,this)'><span>📋</span> Kanban</button><button class='ni' onclick='sv(`config`,this)'><span>⚙️</span> Config</button><button class='ni' onclick='hl()' style='margin-top:40px;color:var(--er)'><span>🚪</span> Sair</button></nav></aside><main><header><div style='display:flex;align-items:center'><button class='hb' onclick='document.getElementById(`sb`).classList.toggle(`o`)'>☰</button><h2 id='vt' style='font-size:18px;margin-left:10px'>Busca de Leads</h2></div><span id='ud' style='font-size:13px;color:var(--m)'></span></header><div class='ca'><div id='v-busca' class='v a'><div class='cb'><label>Estado</label><div class='sg'><div class='sc a' onclick='ss(`Rio de Janeiro`,this)'>Rio de Janeiro</div><div class='sc' onclick='ss(`São Paulo`,this)'>São Paulo</div><div class='sc' onclick='ss(`Espírito Santo`,this)'>Espírito Santo</div><div class='sc' onclick='ss(`Minas Gerais`,this)'>Minas Gerais</div></div><div style='display:grid;grid-template-columns:1fr 1fr auto auto;gap:12px;align-items:end;margin-top:16px'><div><label>Tipo</label><select id='st'><option value='papelaria'>Papelaria</option><option value='livraria'>Livraria</option><option value='material escolar'>Material Escolar</option><option value='papelaria e livraria'>Papelaria e Livraria</option></select></div><div><label>Cidade</label><input type='text' id='sl' value='Rio de Janeiro'></div><button class='btn bp' onclick='ds(false)'>Buscar</button><button class='btn bs' onclick='ds(true)'>⚡ Tudo</button></div></div><div class='cb'><label>Bairros</label><div class='nbl' id='nbl'></div><div style='display:flex;gap:8px;margin-top:8px'><input type='text' id='nbi' placeholder='Bairro' style='flex:1'><select id='nbp' onchange='lp()' style='width:180px'><option value=''>Preset...</option><option value='rj_zs'>RJ Zona Sul</option><option value='rj_zn'>RJ Zona Norte</option><option value='rj_zo'>RJ Zona Oeste</option><option value='sp'>São Paulo</option></select><button class='btn bo' onclick='anb()'>+ Add</button></div></div><div id='ld' class='ld'>⏳ Buscando...</div><div class='cb' id='rc' style='display:none'><h3 style='margin-bottom:16px'>Resultados</h3><table id='rt'><thead><tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Ação</th></tr></thead><tbody></tbody></table></div></div><div id='v-kanban' class='v'><div style='display:flex;gap:12px;align-items:end;margin-bottom:20px;flex-wrap:wrap'><div style='flex:1;min-width:200px'><label>Buscar</label><input type='text' id='kf' placeholder='Nome...' oninput='rk()'></div><div><label>Estado</label><select id='kst' onchange='rk()'><option value='all'>Todos</option><option value='Rio de Janeiro'>RJ</option><option value='São Paulo'>SP</option><option value='Espírito Santo'>ES</option><option value='Minas Gerais'>MG</option></select></div><button class='btn bo' onclick='ecsv()'>📥 CSV</button></div><div class='kb' id='kb'></div></div><div id='v-config' class='v'><div class='cb'><h3 style='margin-bottom:16px'>Config</h3><label>Maps Key</label><input type='password' id='ck' value='AIzaSyBCaaGLCRGfmrGrRPwEEiIq5WtiU-0-RYY'><label style='margin-top:12px'>T1</label><textarea id='ct1' rows='3'></textarea><label>T2</label><textarea id='ct2' rows='3'></textarea><label>T3</label><textarea id='ct3' rows='3'></textarea><button class='btn bp' style='margin-top:12px' onclick='sc()'>Salvar</button></div></div></div></main><div class='md' id='md'><div class='mc'><button class='cm' onclick='cm()'>&times;</button><div id='mb'></div></div></div><div class='tt' id='tt'></div><script src='https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js'></script><script src='https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js'></script><script src='https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js'></script><script>const fc={apiKey:'AIzaSyAvDsUZibY2-y_BbQctAJcV34RH8Du_SEE',authDomain:'tabuada-brasil-crm.firebaseapp.com',projectId:'tabuada-brasil-crm',storageBucket:'tabuada-brasil-crm.firebasestorage.app',messagingSenderId:'754559100157',appId:'1:754559100157:web:24e43949e8dd062fd24a94'};firebase.initializeApp(fc);const auth=firebase.auth();const db=firebase.firestore();const ST=[{id:'novo',l:'Novo'},{id:'t1',l:'Toque 1'},{id:'t2',l:'Toque 2'},{id:'t3',l:'Toque 3'},{id:'fechado',l:'Fechado'}];const PS={rj_zs:['Copacabana','Ipanema','Leblon','Botafogo','Flamengo'],rj_zn:['Tijuca','Méier','Madureira','Vila Isabel','Penha'],rj_zo:['Barra','Recreio','Jacarepaguá','Campo Grande','Bangu'],sp:['Centro','Pinheiros','Itaim Bibi','Moema','Vila Mariana']};const DT={t1:'Olá! Sou Alexandre da Tabuada Brasil. Vi que vocês trabalham com papelaria em {cidade}. Temos material didático que vende há 24 anos. Posso enviar o catálogo?',t2:'Oi {nome}, segue as fotos da nossa tabuada. É produto que escolas pedem e papelarias vendem bem. Quer receber um exemplar?',t3:'Olá {nome}! Estou fechando entregas para {cidade}. Conseguimos fechar o pedido da Tabuada Brasil?'};let cu=null,leads=[],svc=null,gc=null,nb=[],cst='Rio de Janeiro',uc={mapsKey:'AIzaSyBCaaGLCRGfmrGrRPwEEiIq5WtiU-0-RYY',t1:DT.t1,t2:DT.t2,t3:DT.t3};auth.onAuthStateChanged(u=>{if(u){cu=u;document.getElementById('auth').style.display='none';document.getElementById('ud').textContent=u.email;lc();lcfg();im()}else{cu=null;document.getElementById('auth').style.display='flex'}});window.ha=async function(t){const e=document.getElementById('ae').value.trim(),p=document.getElementById('ap').value,er=document.getElementById('aer');er.textContent='';try{if(t==='login')await auth.signInWithEmailAndPassword(e,p);else await auth.createUserWithEmailAndPassword(e,p)}catch(x){er.textContent=x.message}};window.hl=function(){auth.signOut()};window.sv=function(v,b){document.querySelectorAll('.v').forEach(x=>x.classList.remove('a'));document.querySelectorAll('.ni').forEach(x=>x.classList.remove('a'));document.getElementById('v-'+v).classList.add('a');b.classList.add('a');const T={busca:'Busca de Leads',kanban:'Kanban CRM',config:'Configurações'};document.getElementById('vt').textContent=T[v];if(v==='kanban')rk()};window.ss=function(s,e){cst=s;document.querySelectorAll('.sc').forEach(x=>x.classList.remove('a'));e.classList.add('a');document.getElementById('sl').value=s};function lcfg(){db.collection('cfg').doc(cu.uid).onSnapshot(d=>{if(d.exists())uc={...uc,...d.data()};document.getElementById('ck').value=uc.mapsKey||'';document.getElementById('ct1').value=uc.t1||DT.t1;document.getElementById('ct2').value=uc.t2||DT.t2;document.getElementById('ct3').value=uc.t3||DT.t3})}window.sc=function(){uc={mapsKey:document.getElementById('ck').value.trim(),t1:document.getElementById('ct1').value,t2:document.getElementById('ct2').value,t3:document.getElementById('ct3').value};db.collection('cfg').doc(cu.uid).set(uc).then(()=>tt('Salvo'))}function im(){if(!uc.mapsKey||svc)return;const s=document.createElement('script');s.src='https://maps.googleapis.com/maps/api/js?key='+uc.mapsKey+'&libraries=places&callback=mr';document.head.appendChild(s)}window.mr=function(){const m=new google.maps.Map(document.getElementById('mp'),{center:{lat:-22.9,lng:-43.2},zoom:10});svc=new google.maps.places.PlacesService(m);gc=new google.maps.Geocoder()}function lc(){db.collection('leads').where('uid','==',cu.uid).onSnapshot(s=>{leads=s.docs.map(d=>({id:d.id,...d.data()}));if(document.getElementById('v-kanban').classList.contains('a'))rk()})}function tt(m){const t=document.getElementById('tt');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000)}window.anb=function(){const i=document.getElementById('nbi'),v=i.value.trim();if(v&&!nb.includes(v)){nb.push(v);rn();i.value=''}};window.lp=function(){const p=document.getElementById('nbp').value;if(p&&PS[p]){PS[p].forEach(x=>{if(!nb.includes(x))nb.push(x)});rn();document.getElementById('nbp').value=''}};function rn(){const l=document.getElementById('nbl');l.innerHTML=nb.map((n,i)=>`<div class='nbt'>${n} <span onclick='rnb(${i})'>&times;</span></div>`).join('');if(!nb.length)l.innerHTML='<div style="color:var(--m);font-size:12px;padding:8px">Nenhum bairro</div>'}window.rnb=function(i){nb.splice(i,1);rn()};window.ds=async function(a){if(!svc){tt('Aguarde o Maps carregar');return}document.getElementById('ld').classList.add('s');document.querySelector('#rt tbody').innerHTML='';document.getElementById('rc').style.display='none';const t=document.getElementById('st').value,c=document.getElementById('sl').value,k=t==='custom'?c:t;if(a&&nb.length){for(const b of nb){await ps(k+' em '+b+', '+c);await new Promise(r=>setTimeout(r,1000))}}else{await ps(k+' em '+c)}document.getElementById('ld').classList.remove('s');if(sr.length){document.getElementById('rc').style.display='block';tt(sr.length+' encontrados')}};let sr=[];function ps(q){return new Promise(r=>{const req={query:q};svc.textSearch(req,(res,status)=>{if(status==='OK'){res.forEach(p=>{if(!sr.find(x=>x.place_id===p.place_id)){sr.push(p);ar(p)}})}r()})})}function ar(p){const tb=document.querySelector('#rt tbody');const tr=document.createElement('tr');tr.dataset.pid=p.place_id;const sv=leads.find(l=>l.pid===p.place_id);tr.innerHTML=`<td><strong>${p.name}</strong></td><td id='ph-${p.place_id}'>...</td><td style='font-size:12px;color:var(--m)'>${p.formatted_address||p.vicinity||''}</td><td><button class='btn ${sv?'bo':'bp'}' onclick='sl2("${p.place_id}")' ${sv?'disabled':''}>${sv?'Salvo':'Salvar'}</button></td>`;tb.appendChild(tr);svc.getDetails({placeId:p.place_id,fields:['international_phone_number']},(d,s)=>{const el=document.getElementById('ph-'+p.place_id);if(s==='OK'&&d.international_phone_number){el.textContent=d.international_phone_number;p.phone=d.international_phone_number}else el.textContent='N/A'})}window.sl2=async function(pid){const p=sr.find(x=>x.place_id===pid);if(!p||leads.find(l=>l.pid===pid))return;let city=cst,state=cst;if(p.formatted_address){const pa=p.formatted_address.split(',');if(pa.length>1){city=pa[pa.length-2].trim().split('-')[0].trim();const lp=pa[pa.length-1].trim();if(lp.includes('SP'))state='São Paulo';else if(lp.includes('ES'))state='Espírito Santo';else if(lp.includes('MG'))state='Minas Gerais';else if(lp.includes('RJ'))state='Rio de Janeiro'}}const l={uid:cu.uid,pid:p.place_id,name:p.name,phone:p.phone||'',address:p.formatted_address||'',city,state,stage:'novo',touches:[],notes:'',createdAt:new Date().toISOString()};await db.collection('leads').add(l);tt('Salvo')};function gl(){const f=document.getElementById('kf').value.toLowerCase();const s=document.getElementById('kst').value;return leads.filter(l=>{const mn=l.name.toLowerCase().includes(f);const ms=s==='all'||l.state===s;return mn&&ms})}window.rk=function(){const b=document.getElementById('kb');b.innerHTML='';const fl=gl();ST.forEach(st=>{const col=document.createElement('div');col.className='kc';const ls=fl.filter(l=>l.stage===st.id);col.innerHTML=`<div class='kch'><span>${st.l}</span><span>${ls.length}</span></div><div class='kcb' id='stg-${st.id}' ondragover='ad(event)' ondrop='dp(event,"${st.id}")'></div>`;b.appendChild(col);const bd=document.getElementById('stg-'+st.id);ls.forEach(l=>bd.appendChild(clc(l)))})};function clc(l){const c=document.createElement('div');c.className='lc';c.draggable=true;c.ondragstart=e=>e.dataTransfer.setData('lid',l.id);c.onclick=()=>ol(l.id);const w=l.phone&&l.phone.replace(/D/g,'').length>5;c.innerHTML=`<h4>${l.name}</h4><p>${l.city}</p><span class='bd ${w?'bw':'bn'}'>${w?'WhatsApp':'Sem tel'}</span>`;return c}window.ad=function(e){e.preventDefault()};window.dp=async function(e,s){e.preventDefault();const id=e.dataTransfer.getData('lid');await db.collection('leads').doc(id).update({stage:s})};window.ol=function(id){const l=leads.find(x=>x.id===id);if(!l)return;const t1=l.touches.includes(1),t2=l.touches.includes(2),t3=l.touches.includes(3);document.getElementById('mb').innerHTML=`<h2>${l.name}</h2><p style='color:var(--m);margin-bottom:20px'>${l.address||''}</p><p><strong>Tel:</strong> ${l.phone||'N/A'}</p><p><strong>Cidade:</strong> ${l.city} / ${l.state}</p><div style='margin-top:20px'><div class='tb ${t1?'ok':''}' onclick='sw(${id},1)'><span>Toque 1</span><span>${t1?'✅':'Enviar'}</span></div><div class='tb ${t2?'ok':''}' onclick='sw(${id},2)'><span>Toque 2</span><span>${t2?'✅':'Enviar'}</span></div><div class='tb ${t3?'ok':''}' onclick='sw(${id},3)'><span>Toque 3</span><span>${t3?'✅':'Enviar'}</span></div></div><div style='margin-top:16px'><label>Notas</label><textarea id='ln' rows='3'>${l.notes||''}</textarea><button class='btn bp' style='margin-top:8px' onclick='sn(${id})'>Salvar Notas</button></div><button class='btn br' style='margin-top:16px;width:100%' onclick='dl(${id})'>Excluir</button>`;document.getElementById('md').style.display='flex'};window.sw=async function(id,n){const l=leads.find(x=>x.id===id);if(!l||!l.phone)return tt('Sem telefone');let msg=uc['t'+n]||DT['t'+n];msg=msg.replace(/{nome}/g,l.name).replace(/{cidade}/g,l.city);let ph=l.phone.replace(/D/g,'');if(!ph.startsWith('55'))ph='55'+ph;window.open('https://wa.me/'+ph+'?text='+encodeURIComponent(msg),'_blank');if(!l.touches.includes(n)){await db.collection('leads').doc(id).update({touches:[...l.touches,n]})}};window.sn=async function(id){const n=document.getElementById('ln').value;await db.collection('leads').doc(id).update({notes:n});tt('Notas salvas')};window.dl=async function(id){if(!confirm('Excluir?'))return;await db.collection('leads').doc(id).delete();cm()};window.cm=function(){document.getElementById('md').style.display='none'};window.ecsv=function(){let csv='Nome,Telefone,Endereco,Cidade,Estado,Etapa,Notas';leads.forEach(l=>{csv+=`\n"${(l.name||'').replace(/&#34;/g,'&#34;&#34;')}","${l.phone||''}","${(l.address||'').replace(/&#34;/g,'&#34;&#34;')}","${l.city||''}","${l.state||''}","${l.stage||''}","${(l.notes||'').replace(/&#34;/g,'&#34;&#34;')}"`});const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='leads.csv';a.click()};rn()</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabuada Brasil - CRM de Leads</title>
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --sidebar: #0f172a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Auth Screen */
+        #auth-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-card {
+            background: var(--card);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-card h2 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .auth-card p {
+            color: var(--muted);
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .auth-card input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .auth-card button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 8px;
+            transition: 0.2s;
+        }
+
+        .btn-login { background: var(--primary); color: white; }
+        .btn-signup { background: white; color: var(--primary); border: 1px solid var(--primary); }
+
+        /* Sidebar */
+        aside {
+            width: 260px;
+            background: var(--sidebar);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .sidebar-header h1 {
+            font-size: 18px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .nav-item {
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            color: #94a3b8;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            font-size: 14px;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: #1e293b;
+            color: white;
+        }
+
+        .nav-item span { margin-right: 12px; }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            width: calc(100% - 260px);
+        }
+
+        header {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .container {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .view { display: none; }
+        .view.active { display: block; }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Kanban */
+        .kanban-board {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            min-height: calc(100vh - 200px);
+        }
+
+        .kanban-column {
+            flex: 1;
+            min-width: 280px;
+            background: #f8fafc;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border);
+        }
+
+        .kanban-header {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .kanban-list {
+            padding: 12px;
+            flex: 1;
+            min-height: 100px;
+        }
+
+        .lead-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: grab;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .lead-card:active { cursor: grabbing; }
+
+        /* Forms */
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--muted); }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            display: none;
+            z-index: 4000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 900px) {
+            aside { transform: translateX(-100%); }
+            aside.open { transform: translateX(0); }
+            main { margin-left: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Auth Screen -->
+    <div id="auth-screen">
+        <div class="auth-card">
+            <h2>TABUADA BRASIL</h2>
+            <p>CRM de Leads Online</p>
+            <input type="email" id="auth-email" placeholder="E-mail">
+            <input type="password" id="auth-pass" placeholder="Senha">
+            <button class="btn-primary" onclick="handleAuth('login')">Entrar</button>
+            <button class="btn-signup" onclick="handleAuth('signup')">Criar Conta</button>
+            <div id="auth-error" style="color: var(--danger); font-size: 12px; text-align: center; margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <h1>TABUADA BRASIL</h1>
+        </div>
+        <nav style="flex: 1; padding-top: 20px;">
+            <button class="nav-item active" onclick="showView('dashboard', this)"><span>📊</span> Dashboard</button>
+            <button class="nav-item" onclick="showView('kanban', this)"><span>📋</span> Kanban CRM</button>
+            <button class="nav-item" onclick="showView('leads', this)"><span>👥</span> Lista de Leads</button>
+            <button class="nav-item" onclick="showView('config', this)"><span>⚙️</span> Configurações</button>
+            <button class="nav-item" onclick="logout()" style="margin-top: 40px; color: var(--danger);"><span>🚪</span> Sair</button>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main>
+        <header>
+            <div style="display: flex; align-items: center;">
+                <button id="menu-toggle" style="background: none; border: none; font-size: 24px; cursor: pointer; margin-right: 15px;" onclick="toggleSidebar()">☰</button>
+                <h2 id="view-title" style="font-size: 18px;">Dashboard</h2>
+            </div>
+            <div id="user-display" style="font-size: 13px; color: var(--muted);"></div>
+        </header>
+
+        <div class="container">
+            <!-- Dashboard View -->
+            <div id="view-dashboard" class="view active">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 24px;">
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 12px; color: var(--muted); text-transform: uppercase;">Total de Leads</div>
+                        <div id="stat-total" style="font-size: 32px; font-weight: 700; margin-top: 8px;">0</div>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 12px; color: var(--muted); text-transform: uppercase;">Em Aberto</div>
+                        <div id="stat-open" style="font-size: 32px; font-weight: 700; margin-top: 8px; color: var(--warning);">0</div>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div style="font-size: 12px; color: var(--muted); text-transform: uppercase;">Fechados</div>
+                        <div id="stat-closed" style="font-size: 32px; font-weight: 700; margin-top: 8px; color: var(--success);">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kanban View -->
+            <div id="view-kanban" class="view">
+                <div class="kanban-board" id="kanban-board">
+                    <!-- Columns generated by JS -->
+                </div>
+            </div>
+
+            <!-- Leads List View -->
+            <div id="view-leads" class="view">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <button class="btn btn-primary" onclick="openModal('modal-lead')">+ Novo Lead</button>
+                        <button class="btn btn-success" onclick="exportCSV()">📥 Exportar CSV</button>
+                    </div>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="text-align: left; border-bottom: 2px solid var(--border);">
+                                <th style="padding: 12px;">Nome</th>
+                                <th style="padding: 12px;">Cidade</th>
+                                <th style="padding: 12px;">Estágio</th>
+                                <th style="padding: 12px;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leads-table-body">
+                            <!-- Rows generated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Config View -->
+            <div id="view-config" class="view">
+                <div class="card">
+                    <h3>Configurações de Cadência</h3>
+                    <p style="font-size: 13px; color: var(--muted); margin-bottom: 20px;">Defina as mensagens padrão para os touchpoints.</p>
+                    <div class="form-group">
+                        <label>Mensagem Toque 1 (Apresentação)</label>
+                        <textarea id="cfg-t1" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Mensagem Toque 2 (Follow-up)</label>
+                        <textarea id="cfg-t2" rows="3"></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="saveConfig()">Salvar Configurações</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Lead -->
+    <div id="modal-lead" class="modal-overlay">
+        <div class="modal-content">
+            <h2 style="margin-bottom: 20px;">Novo Lead</h2>
+            <div class="form-group">
+                <label>Nome da Empresa/Contato</label>
+                <input type="text" id="lead-name">
+            </div>
+            <div class="form-group">
+                <label>Telefone (WhatsApp)</label>
+                <input type="text" id="lead-phone" placeholder="5521999999999">
+            </div>
+            <div class="form-group">
+                <label>Cidade</label>
+                <input type="text" id="lead-city">
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-primary" onclick="saveLead()">Salvar</button>
+                <button class="btn btn-danger" onclick="closeModal('modal-lead')">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">Mensagem enviada!</div>
+
+    <script>
+        // State Management
+        let leads = JSON.parse(localStorage.getItem('tb_leads')) || [];
+        let config = JSON.parse(localStorage.getItem('tb_config')) || {
+            t1: "Olá! Sou Alexandre da Tabuada Brasil. Vi que vocês trabalham com papelaria em {cidade}. Temos material didático que vende há 24 anos. Posso enviar o catálogo?",
+            t2: "Oi {nome}, tudo bem? Gostaria de saber se conseguiu ver o material que enviei."
+        };
+
+        const stages = [
+            { id: 'novo', label: 'Novo' },
+            { id: 'contato', label: 'Em Contato' },
+            { id: 'proposta', label: 'Proposta' },
+            { id: 'fechado', label: 'Fechado' }
+        ];
+
+        // Auth Mock
+        function handleAuth(type) {
+            const email = document.getElementById('auth-email').value;
+            if (email.includes('@')) {
+                document.getElementById('auth-screen').style.display = 'none';
+                document.getElementById('user-display').textContent = email;
+                init();
+            } else {
+                document.getElementById('auth-error').textContent = "Insira um e-mail válido.";
+            }
+        }
+
+        function logout() {
+            location.reload();
+        }
+
+        // Navigation
+        function showView(viewId, btn) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('view-' + viewId).classList.add('active');
+            btn.classList.add('active');
+            document.getElementById('view-title').textContent = btn.textContent.replace(/[^\w\s]/gi, '').trim();
+            if (viewId === 'kanban') renderKanban();
+            if (viewId === 'leads') renderLeadsTable();
+            if (viewId === 'dashboard') updateStats();
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // CRUD Leads
+        function saveLead() {
+            const name = document.getElementById('lead-name').value;
+            const phone = document.getElementById('lead-phone').value;
+            const city = document.getElementById('lead-city').value;
+
+            if (!name) return alert("Nome é obrigatório");
+
+            const newLead = {
+                id: Date.now(),
+                name,
+                phone,
+                city,
+                stage: 'novo',
+                createdAt: new Date().toISOString()
+            };
+
+            leads.push(newLead);
+            sync();
+            closeModal('modal-lead');
+            showToast("Lead cadastrado com sucesso!");
+        }
+
+        function deleteLead(id) {
+            if (confirm("Excluir este lead?")) {
+                leads = leads.filter(l => l.id !== id);
+                sync();
+                renderLeadsTable();
+            }
+        }
+
+        function sync() {
+            localStorage.setItem('tb_leads', JSON.stringify(leads));
+            updateStats();
+        }
+
+        // Rendering
+        function updateStats() {
+            document.getElementById('stat-total').textContent = leads.length;
+            document.getElementById('stat-open').textContent = leads.filter(l => l.stage !== 'fechado').length;
+            document.getElementById('stat-closed').textContent = leads.filter(l => l.stage === 'fechado').length;
+        }
+
+        function renderLeadsTable() {
+            const tbody = document.getElementById('leads-table-body');
+            tbody.innerHTML = leads.map(l => `
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 12px;">${l.name}</td>
+                    <td style="padding: 12px;">${l.city}</td>
+                    <td style="padding: 12px;"><span style="font-size: 11px; background: #e2e8f0; padding: 2px 8px; border-radius: 10px;">${l.stage}</span></td>
+                    <td style="padding: 12px;">
+                        <button onclick="openWhatsApp(${l.id}, 1)" style="cursor:pointer; border:none; background:none;">📱</button>
+                        <button onclick="deleteLead(${l.id})" style="cursor:pointer; border:none; background:none;">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderKanban() {
+            const board = document.getElementById('kanban-board');
+            board.innerHTML = stages.map(s => `
+                <div class="kanban-column">
+                    <div class="kanban-header">
+                        <span>${s.label}</span>
+                        <span style="background: white; padding: 2px 8px; border-radius: 10px;">${leads.filter(l => l.stage === s.id).length}</span>
+                    </div>
+                    <div class="kanban-list" ondragover="allowDrop(event)" ondrop="drop(event, '${s.id}')">
+                        ${leads.filter(l => l.stage === s.id).map(l => `
+                            <div class="lead-card" draggable="true" ondragstart="drag(event, ${l.id})">
+                                <div style="font-weight: 600; font-size: 14px;">${l.name}</div>
+                                <div style="font-size: 12px; color: var(--muted);">${l.city}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Drag and Drop
+        function allowDrop(ev) { ev.preventDefault(); }
+        function drag(ev, id) { ev.dataTransfer.setData("leadId", id); }
+        function drop(ev, stageId) {
+            ev.preventDefault();
+            const id = ev.dataTransfer.getData("leadId");
+            const lead = leads.find(l => l.id == id);
+            if (lead) {
+                lead.stage = stageId;
+                sync();
+                renderKanban();
+            }
+        }
+
+        // WhatsApp Cadence
+        function openWhatsApp(id, toque) {
+            const lead = leads.find(l => l.id == id);
+            if (!lead || !lead.phone) return alert("Lead sem telefone");
+
+            let msg = config['t' + toque] || "";
+            msg = msg.replace(/{nome}/g, lead.name).replace(/{cidade}/g, lead.city);
+            
+            const url = `https://wa.me/${lead.phone.replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`;
+            window.open(url, '_blank');
+        }
+
+        // Config
+        function saveConfig() {
+            config.t1 = document.getElementById('cfg-t1').value;
+            config.t2 = document.getElementById('cfg-t2').value;
+            localStorage.setItem('tb_config', JSON.stringify(config));
+            showToast("Configurações salvas!");
+        }
+
+        // Utils
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 3000);
+        }
+
+        function exportCSV() {
+            let csv = "Nome,Telefone,Cidade,Estagio\n";
+            leads.forEach(l => {
+                csv += `"${l.name}","${l.phone}","${l.city}","${l.stage}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('hidden', '');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'leads_tabuada_brasil.csv');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function init() {
+            document.getElementById('cfg-t1').value = config.t1;
+            document.getElementById('cfg-t2').value = config.t2;
+            updateStats();
+        }
+    </script>
+</body>
+</html>
