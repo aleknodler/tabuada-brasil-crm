@@ -7,77 +7,77 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
     :root { --primary: #0ea5e9; --primary-dark: #0284c7; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --text-light: #64748b; --border: #e2e8f0; --success: #10b981; --danger: #ef4444; --warning: #f59e0b; }
-    body { background-color: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; }
-    #auth-screen { position: fixed; inset: 0; background: var(--bg); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .auth-card { background: var(--card); padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border: 1px solid var(--border); }
-    .auth-card h2 { color: var(--primary); font-size: 24px; font-weight: 800; margin-bottom: 8px; text-align: center; letter-spacing: -0.025em; }
-    .auth-card p { color: var(--text-light); font-size: 14px; margin-bottom: 32px; text-align: center; }
-    .auth-card input { width: 100%; padding: 12px 16px; margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; transition: border 0.2s; }
-    .auth-card input:focus { outline: none; border-color: var(--primary); }
-    .auth-btn { width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 14px; margin-bottom: 8px; }
-    .auth-btn-primary { background: var(--primary); color: white; }
-    .auth-btn-primary:hover { background: var(--primary-dark); }
-    .auth-btn-ghost { background: transparent; color: var(--text-light); border: 1px solid var(--border); }
-    .auth-btn-ghost:hover { background: #f1f5f9; }
-    .auth-error { color: var(--danger); font-size: 12px; text-align: center; margin-top: 8px; min-height: 18px; }
-    aside { width: 260px; background: #0f172a; color: white; position: fixed; height: 100vh; z-index: 1000; transition: transform 0.3s ease; display: flex; flex-direction: column; }
-    .sidebar-header { padding: 32px 24px; border-bottom: 1px solid #1e293b; }
-    .sidebar-header h1 { font-size: 18px; font-weight: 800; color: var(--primary); letter-spacing: 0.05em; }
-    .nav-item { padding: 14px 24px; display: flex; align-items: center; cursor: pointer; color: #94a3b8; transition: 0.2s; border: none; background: none; width: 100%; font-size: 14px; font-weight: 500; text-align: left; }
-    .nav-item:hover, .nav-item.active { background: #1e293b; color: white; }
-    .nav-item i { margin-right: 12px; width: 20px; text-align: center; font-style: normal; }
-    main { flex: 1; margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; width: calc(100% - 260px); }
-    header { height: 70px; background: var(--card); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; position: sticky; top: 0; z-index: 900; }
-    .menu-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text); }
-    .content-area { padding: 32px; max-width: 1400px; margin: 0 auto; width: 100%; }
-    .view { display: none; animation: fadeIn 0.3s ease; }
-    .view.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-    .card { background: var(--card); border-radius: 12px; border: 1px solid var(--border); padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
-    label { display: block; font-size: 12px; font-weight: 600; color: var(--text-light); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.025em; }
-    input, select, textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; color: var(--text); background: #fff; }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); ring: 2px var(--primary); }
-    .btn { padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; font-size: 13px; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; justify-content: center; }
-    .btn-p { background: var(--primary); color: white; }
-    .btn-p:hover { background: var(--primary-dark); }
-    .btn-s { background: var(--success); color: white; }
-    .btn-o { background: transparent; border: 1px solid var(--border); color: var(--text); }
-    .btn-o:hover { background: #f8fafc; }
-    .btn-d { background: var(--danger); color: white; }
-    .state-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-    .state-chip { padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border); background: white; font-size: 13px; font-weight: 500; cursor: pointer; transition: 0.2s; }
-    .state-chip.active { background: var(--primary); color: white; border-color: var(--primary); }
-    .nb-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; min-height: 40px; padding: 12px; background: #f1f5f9; border-radius: 8px; }
-    .nb-tag { background: white; border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; font-size: 12px; display: flex; align-items: center; gap: 6px; }
-    .nb-tag span { cursor: pointer; color: var(--danger); font-weight: bold; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th { text-align: left; padding: 12px 16px; border-bottom: 2px solid var(--border); color: var(--text-light); font-size: 11px; text-transform: uppercase; font-weight: 700; }
-    td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 14px; }
-    .kanban-container { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 20px; min-height: calc(100vh - 250px); }
-    .kanban-col { flex: 1; min-width: 280px; background: #f1f5f9; border-radius: 12px; display: flex; flex-direction: column; max-height: calc(100vh - 250px); }
-    .kanban-header { padding: 16px; display: flex; justify-content: space-between; align-items: center; }
-    .kanban-title { font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--text-light); }
-    .kanban-count { background: white; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; }
-    .kanban-body { padding: 12px; flex: 1; overflow-y: auto; }
-    .lead-card { background: white; border-radius: 8px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); border: 1px solid var(--border); cursor: grab; transition: transform 0.1s; }
-    .lead-card:active { cursor: grabbing; }
-    .lead-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
-    .lead-card p { font-size: 12px; color: var(--text-light); margin-bottom: 10px; }
-    .lead-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
-    .badge-wa { background: #dcfce7; color: #28b65e; }
-    .badge-none { background: #fee2e2; color: #ff3131; }
-    .modal { position: fixed; inset: 0; background: rgba(15,23,42,0.7); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); }
-    .modal-content { background: white; width: 100%; max-width: 650px; border-radius: 16px; padding: 32px; position: relative; max-height: 90vh; overflow-y: auto; }
-    .close-modal { position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; border: none; background: none; color: var(--text-light); }
-    .touch-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; background: white; text-align: left; }
-    .touch-btn:hover { border-color: var(--primary); background: #f0f9ff; }
-    .touch-btn.completed { background: #f0fdf4; border-color: var(--success); }
-    .toast { position: fixed; bottom: 30px; right: 30px; background: #1e293b; color: white; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; display: none; z-index: 4000; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-    @media (max-width: 1024px) {
-      aside { transform: translateX(-100%); }
-      aside.open { transform: translateX(0); }
-      main { margin-left: 0; width: 100%; }
+    body { background-color: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; } 
+    #auth-screen { position: fixed; inset: 0; background: var(--bg); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; } 
+    .auth-card { background: var(--card); padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border: 1px solid var(--border); } 
+    .auth-card h2 { color: var(--primary); font-size: 24px; font-weight: 800; margin-bottom: 8px; text-align: center; letter-spacing: -0.025em; } 
+    .auth-card p { color: var(--text-light); font-size: 14px; margin-bottom: 32px; text-align: center; } 
+    .auth-card input { width: 100%; padding: 12px 16px; margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; transition: border 0.2s; } 
+    .auth-card input:focus { outline: none; border-color: var(--primary); } 
+    .auth-btn { width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 14px; margin-bottom: 8px; } 
+    .auth-btn-primary { background: var(--primary); color: white; } 
+    .auth-btn-primary:hover { background: var(--primary-dark); } 
+    .auth-btn-ghost { background: transparent; color: var(--text-light); border: 1px solid var(--border); } 
+    .auth-btn-ghost:hover { background: #f1f5f9; } 
+    .auth-error { color: var(--danger); font-size: 12px; text-align: center; margin-top: 8px; min-height: 18px; } 
+    aside { width: 260px; background: #0f172a; color: white; position: fixed; height: 100vh; z-index: 1000; transition: transform 0.3s ease; display: flex; flex-direction: column; } 
+    .sidebar-header { padding: 32px 24px; border-bottom: 1px solid #1e293b; } 
+    .sidebar-header h1 { font-size: 18px; font-weight: 800; color: var(--primary); letter-spacing: 0.05em; } 
+    .nav-item { padding: 14px 24px; display: flex; align-items: center; cursor: pointer; color: #94a3b8; transition: 0.2s; border: none; background: none; width: 100%; font-size: 14px; font-weight: 500; text-align: left; } 
+    .nav-item:hover, .nav-item.active { background: #1e293b; color: white; } 
+    .nav-item i { margin-right: 12px; width: 20px; text-align: center; font-style: normal; } 
+    main { flex: 1; margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; width: calc(100% - 260px); } 
+    header { height: 70px; background: var(--card); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 32px; position: sticky; top: 0; z-index: 900; } 
+    .menu-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text); } 
+    .content-area { padding: 32px; max-width: 1400px; margin: 0 auto; width: 100%; } 
+    .view { display: none; animation: fadeIn 0.3s ease; } 
+    .view.active { display: block; } 
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } } 
+    .card { background: var(--card); border-radius: 12px; border: 1px solid var(--border); padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); } 
+    .card-title { font-size: 16px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; } 
+    label { display: block; font-size: 12px; font-weight: 600; color: var(--text-light); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.025em; } 
+    input, select, textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; color: var(--text); background: #fff; } 
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); ring: 2px var(--primary); } 
+    .btn { padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; font-size: 13px; transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; justify-content: center; } 
+    .btn-p { background: var(--primary); color: white; } 
+    .btn-p:hover { background: var(--primary-dark); } 
+    .btn-s { background: var(--success); color: white; } 
+    .btn-o { background: transparent; border: 1px solid var(--border); color: var(--text); } 
+    .btn-o:hover { background: #f8fafc; } 
+    .btn-d { background: var(--danger); color: white; } 
+    .state-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; } 
+    .state-chip { padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border); background: white; font-size: 13px; font-weight: 500; cursor: pointer; transition: 0.2s; } 
+    .state-chip.active { background: var(--primary); color: white; border-color: var(--primary); } 
+    .nb-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; min-height: 40px; padding: 12px; background: #f1f5f9; border-radius: 8px; } 
+    .nb-tag { background: white; border: 1px solid var(--border); padding: 4px 10px; border-radius: 6px; font-size: 12px; display: flex; align-items: center; gap: 6px; } 
+    .nb-tag span { cursor: pointer; color: var(--danger); font-weight: bold; } 
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; } 
+    th { text-align: left; padding: 12px 16px; border-bottom: 2px solid var(--border); color: var(--text-light); font-size: 11px; text-transform: uppercase; font-weight: 700; } 
+    td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 14px; } 
+    .kanban-container { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 20px; min-height: calc(100vh - 250px); } 
+    .kanban-col { flex: 1; min-width: 280px; background: #f1f5f9; border-radius: 12px; display: flex; flex-direction: column; max-height: calc(100vh - 250px); } 
+    .kanban-header { padding: 16px; display: flex; justify-content: space-between; align-items: center; } 
+    .kanban-title { font-size: 13px; font-weight: 700; text-transform: uppercase; color: var(--text-light); } 
+    .kanban-count { background: white; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; } 
+    .kanban-body { padding: 12px; flex: 1; overflow-y: auto; } 
+    .lead-card { background: white; border-radius: 8px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); border: 1px solid var(--border); cursor: grab; transition: transform 0.1s; } 
+    .lead-card:active { cursor: grabbing; } 
+    .lead-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--text); } 
+    .lead-card p { font-size: 12px; color: var(--text-light); margin-bottom: 10px; } 
+    .lead-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; } 
+    .badge-wa { background: #dcfce7; color: #28b65e; } 
+    .badge-none { background: #fee2e2; color: #ff3131; } 
+    .modal { position: fixed; inset: 0; background: rgba(15,23,42,0.7); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); } 
+    .modal-content { background: white; width: 100%; max-width: 650px; border-radius: 16px; padding: 32px; position: relative; max-height: 90vh; overflow-y: auto; } 
+    .close-modal { position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; border: none; background: none; color: var(--text-light); } 
+    .touch-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; background: white; text-align: left; } 
+    .touch-btn:hover { border-color: var(--primary); background: #f0f9ff; } 
+    .touch-btn.completed { background: #f0fdf4; border-color: var(--success); } 
+    .toast { position: fixed; bottom: 30px; right: 30px; background: #1e293b; color: white; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500; display: none; z-index: 4000; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); } 
+    @media (max-width: 1024px) { 
+      aside { transform: translateX(-100%); } 
+      aside.open { transform: translateX(0); } 
+      main { margin-left: 0; width: 100%; } 
       .menu-toggle { display: block; }
     }
   </style>
@@ -261,11 +261,11 @@
 
   <script>
     const firebaseConfig = {
-      apiKey: "AIzaSyAvDsUZibY2-y_BbQctAJcV34RH8Du_SEE",
-      authDomain: "tabuada-brasil-crm.firebaseapp.com",
-      projectId: "tabuada-brasil-crm",
-      storageBucket: "tabuada-brasil-crm.firebasestorage.app",
-      messagingSenderId: "754559100157",
+      apiKey: "AIzaSyAvDsUZibY2-y_BbQctAJcV34RH8Du_SEE", 
+      authDomain: "tabuada-brasil-crm.firebaseapp.com", 
+      projectId: "tabuada-brasil-crm", 
+      storageBucket: "tabuada-brasil-crm.firebasestorage.app", 
+      messagingSenderId: "754559100157", 
       appId: "1:754559100157:web:24e43949e8dd062fd24a94"
     };
 
@@ -283,23 +283,23 @@
     let isSearching = false;
 
     const STAGES = [
-      { id: 'novo', label: 'Novo Lead' },
-      { id: 'contato1', label: 'Toque 1' },
-      { id: 'contato2', label: 'Toque 2' },
-      { id: 'contato3', label: 'Toque 3' },
+      { id: 'novo', label: 'Novo Lead' }, 
+      { id: 'contato1', label: 'Toque 1' }, 
+      { id: 'contato2', label: 'Toque 2' }, 
+      { id: 'contato3', label: 'Toque 3' }, 
       { id: 'fechado', label: 'Fechado' }
     ];
 
     const PRESETS = {
-      rj_zs: ['Copacabana', 'Ipanema', 'Leblon', 'Botafogo', 'Flamengo', 'Laranjeiras', 'Gávea', 'Humaitá'],
-      rj_zn: ['Tijuca', 'Méier', 'Grajaú', 'Vila Isabel', 'Madureira', 'Penha', 'Ilha do Governador'],
-      rj_zo: ['Barra da Tijuca', 'Recreio', 'Jacarepaguá', 'Campo Grande', 'Bangu', 'Santa Cruz'],
+      rj_zs: ['Copacabana', 'Ipanema', 'Leblon', 'Botafogo', 'Flamengo', 'Laranjeiras', 'Gávea', 'Humaitá'], 
+      rj_zn: ['Tijuca', 'Méier', 'Grajaú', 'Vila Isabel', 'Madureira', 'Penha', 'Ilha do Governador'], 
+      rj_zo: ['Barra da Tijuca', 'Recreio', 'Jacarepaguá', 'Campo Grande', 'Bangu', 'Santa Cruz'], 
       sp_cap: ['Centro', 'Pinheiros', 'Itaim Bibi', 'Moema', 'Vila Mariana', 'Tatuapé', 'Santana', 'Lapa']
     };
 
     const DEFAULT_TEMPLATES = {
-      t1: "Olá! Sou o Alexandre da Tabuada Brasil. Vi que vocês trabalham com papelaria em {cidade}. Temos um material didático (Tabuada com Hino Nacional) que vende muito bem há 24 anos. Posso te enviar o catálogo?",
-      t2: "Oi {nome}, tudo bem? Conforme falamos, segue as fotos da nossa Tabuada 2026. É um item essencial para volta às aulas. Qual sua média de pedido para esse tipo de material?",
+      t1: "Olá! Sou o Alexandre da Tabuada Brasil. Vi que vocês trabalham com papelaria em {cidade}. Temos um material didático (Tabuada com Hino Nacional) que vende muito bem há 24 anos. Posso te enviar o catálogo?", 
+      t2: "Oi {nome}, tudo bem? Conforme falamos, segue as fotos da nossa Tabuada 2026. É um item essencial para volta às aulas. Qual sua média de pedido para esse tipo de material?", 
       t3: "Olá {nome}! Estou fechando a rota de entregas para {cidade} na próxima semana. Conseguimos fechar aquele pedido da Tabuada Brasil para garantir o estoque de vocês?"
     };
 
@@ -376,9 +376,9 @@
 
     async function saveConfig() {
       const data = {
-        t1: document.getElementById('cfg-tpl-1').value,
-        t2: document.getElementById('cfg-tpl-2').value,
-        t3: document.getElementById('cfg-tpl-3').value,
+        t1: document.getElementById('cfg-tpl-1').value, 
+        t2: document.getElementById('cfg-tpl-2').value, 
+        t3: document.getElementById('cfg-tpl-3').value, 
         mapsKey: document.getElementById('cfg-maps-key').value
       };
       await db.collection('config').doc(currentUser.uid).set(data);
@@ -512,16 +512,16 @@
       const place = searchResults.find(r => r.place_id === placeId);
       if (!place) return;
       const lead = {
-        uid: currentUser.uid,
-        place_id: place.place_id,
-        name: place.name,
-        address: place.formatted_address,
-        phone: place.phone || "",
-        state: selectedState,
-        city: document.getElementById('search-city').value,
-        stage: 'novo',
-        touches: [],
-        notes: "",
+        uid: currentUser.uid, 
+        place_id: place.place_id, 
+        name: place.name, 
+        address: place.formatted_address, 
+        phone: place.phone || "", 
+        state: selectedState, 
+        city: document.getElementById('search-city').value, 
+        stage: 'novo', 
+        touches: [], 
+        notes: "", 
         createdAt: new Date().toISOString()
       };
       await db.collection('leads').add(lead);
